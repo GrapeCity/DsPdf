@@ -4,7 +4,7 @@
 
 **GrapeCity Documents for PDF** (aka **GcPdf**) is a collection of class libraries targeting .NET Standard 2.0, written in C#, and providing APIs that allow to create PDF files from scratch and to load, analyze and modify existing documents.
 
-**GcPdf** runs on all platforms supported by .NET Standard, including .NET Core, ASP.NET Core, .NET Framework and so on.
+**GcPdf** runs on all platforms supported by .NET Standard, including .NET Core, ASP.NET Core, .NET Framework and so on, and on all operating systems (Windows, Linux and MAC).
 
 **GcPdf** and supporting packages are [available on NuGet.org](https://www.nuget.org/packages?q=grapecity.documents):
 
@@ -28,17 +28,16 @@ it directly.
 
 ## What is here
 
-This repository contains sample projects to help learn GcPdf features and quickly get up to speed using it.
+This repository contains example projects that demonstrate basic and advanced features of **GcPdf**. The samples' code includes extensive comments that will help you learn **GcPdf** and quickly get up to speed using it.
 
 ## Licensing
 
 To use **GcPdf** in a production environment, you need a valid license, please see [GrapeCity Licensing](https://www.grapecity.com/en/licensing/grapecity/) for details.
 
-An unlicensed version of **GcPdf** has the following limitations:
+When used without a license, **GcPdf** has the following limitations:
 
 - A header saying that an unlicensed version was used, is added to the top of all pages in the generated PDFs.
 - When loading PDFs, only up to 5 first pages are loaded.
-
 
 ## Resources
 
@@ -46,3 +45,5 @@ An unlicensed version of **GcPdf** has the following limitations:
 - [Online Sample Browser](http://demos.componentone.com/gcdocs/gcpdf)
 - [Documentation](http://help.grapecity.com/gcdocs/gcpdf/onlinehelp/webframe.html)
 - [GcPdf on NuGet](https://www.nuget.org/packages/GrapeCity.Documents.Pdf/)
+
+&diams;
