@@ -2,7 +2,7 @@
 
 ## Overview
 
-**GrapeCity Documents for PDF** (aka **GcPdf**) is a collection of class libraries targeting .NET Standard 2.0, written in C#, and providing APIs that allow to create PDF files from scratch and to load, analyze and modify existing documents.
+**GrapeCity Documents for PDF** (aka **GcPdf**) is a collection of class libraries targeting .NET Standard 2.0, written in C#, and providing APIs that allow you to create PDF files from scratch and to load, analyze and modify existing documents.
 
 **GcPdf** runs on all platforms supported by .NET Standard, including .NET Core, ASP.NET Core, .NET Framework and so on, and on all operating systems (Windows, Linux and MAC).
 
