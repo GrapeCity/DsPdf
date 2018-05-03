@@ -1,6 +1,6 @@
-# GcPdf
+# GrapeCity Documents for PDF (GcPdf)
 
-## (Under construction)
+Jump down to [Resources](#Resources).
 
 ## Overview
 
