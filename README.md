@@ -45,5 +45,3 @@ When used without a license, **GcPdf** has the following limitations:
 - [Online Sample Browser](http://demos.componentone.com/gcdocs/gcpdf)
 - [Documentation](http://help.grapecity.com/gcdocs/gcpdf/onlinehelp/webframe.html)
 - [GcPdf on NuGet](https://www.nuget.org/packages/GrapeCity.Documents.Pdf/)
-
-&diams;

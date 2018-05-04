@@ -9,5 +9,3 @@
 ## Suggestions and Problem Reporting
 
 If you notice any issues with this code, or have questions or suggestions about it, send an email to <dmitry.yaitskov@grapecity.com>. 
-
-&diams;
