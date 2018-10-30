@@ -10,7 +10,8 @@ using GrapeCity.Documents.Drawing;
 
 namespace GcPdfWeb.Samples.Basics
 {
-    // Demonstrates how different styles of numbered lists can be rendered in GcPdf.
+    // This sample demonstrates how different styles of numbered lists
+    // can be rendered in GcPdf.
     // See also NumberedList.
     public class NumberedList2
     {
@@ -67,7 +68,7 @@ namespace GcPdfWeb.Samples.Basics
                 // Render item:
                 g.DrawTextLayout(tlBullet, pt);
                 g.DrawTextLayout(tlText, pt);
-                // increase insertion point:
+                // Advance insertion point:
                 pt.Y += tlText.ContentHeight;
                 // Render children:
                 if (nodes[i].Children.Count > 0)
@@ -123,7 +124,7 @@ namespace GcPdfWeb.Samples.Basics
             return result.ToString();
         }
 
-        // Main:
+        // Main entry point:
         public void CreatePDF(Stream stream)
         {
             var doc = new GcPdfDocument();

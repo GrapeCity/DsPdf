@@ -31,10 +31,11 @@ namespace GcPdfWeb.Samples.Basics
             tl.DefaultFormat.Font = StandardFonts.Times;
             tl.DefaultFormat.FontSize = 10;
             tl.DefaultFormat.BackColor = Color.FromArgb(217, 217, 217);
-            // Add tab stops with different alignment types:
+            // Add tab stops with different alignment types
+            // (the first tab's ctor creates a TabStopAlignment.Separator TabStop):
             tl.TabStops = new List<TabStop>()
             {
-                new TabStop(72, '.'), // this ctor creates a TabStopAlignment.Separator TabStop
+                new TabStop(72, '.'),
                 new TabStop(72 * 2.5f, TabStopAlignment.Leading),
                 new TabStop(72 * 5, TabStopAlignment.Center),
                 new TabStop(72 * 7.5f, TabStopAlignment.Trailing),

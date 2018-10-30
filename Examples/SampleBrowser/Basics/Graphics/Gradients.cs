@@ -7,7 +7,8 @@ using GrapeCity.Documents.Drawing;
 
 namespace GcPdfWeb.Samples.Basics
 {
-    // Sample shows how to create gradient fills using LinearGradientBrush and RadialGradientBrush.
+    // This sample shows how to create gradient fills
+    // using LinearGradientBrush and RadialGradientBrush.
     public class Gradients
     {
         public void CreatePDF(Stream stream)
@@ -60,7 +61,6 @@ namespace GcPdfWeb.Samples.Basics
             rc = Common.Util.AddNote("Radial gradients using RadialGradientBrush:", doc.Pages.Last, new RectangleF(ip, new SizeF(500, 100)));
             ip.Y = rc.Bottom + dy;
             // Centered:
-            // testRectSize.Height *= 2;
             RadialGradientBrush radialGradBrush = new RadialGradientBrush(Color.Orange, Color.Purple);
             drawSwatch(radialGradBrush, $"Radial gradient\r\nwith origin at {radialGradBrush.GradientOrigin}");
             // Center in bottom right corner:

@@ -77,13 +77,16 @@ namespace GcPdfWeb.Samples
                         sb.AppendLine($"Field '{fld}' found/");
                     }
                 }
-
                 // Add a log of what we did at the bottom of the page:
-                var tl = new TextLayout();
-                tl.MaxWidth = page.Size.Width;
-                tl.MaxHeight = page.Size.Height;
-                tl.MarginLeft = tl.MarginRight = tl.MarginBottom = 80;
-                tl.ParagraphAlignment = ParagraphAlignment.Far;
+                var tl = new TextLayout
+                {
+                    MaxWidth = page.Size.Width,
+                    MaxHeight = page.Size.Height,
+                    MarginLeft = 80,
+                    MarginRight = 80,
+                    MarginBottom = 80,
+                    ParagraphAlignment = ParagraphAlignment.Far
+                };
                 tl.Append(sb.ToString(), new TextFormat() { Font = StandardFonts.Times, FontSize = 12 });
                 tl.PerformLayout(true);
                 var rc = tl.ContentRectangle;

@@ -20,9 +20,9 @@ namespace GcPdfWeb.Samples.OrderReturnForm
         const float MarginBottom = 32;
         //
         const float TableCaptionHeight = 20;
-        float TableSampleHeight = Textbox.Height;
-        float SmallTextVOff = -0.5f; // -1
-        // Section delimiting line
+        readonly float TableSampleHeight = Textbox.Height;
+        const float SmallTextVOff = -0.5f;
+        // Section delimiting line:
         float CaptionLineThickness = 2.5f;
         // Struct to hold a text style:
         struct TextStyle
@@ -87,9 +87,9 @@ namespace GcPdfWeb.Samples.OrderReturnForm
         }
         // The document being created:
         private GcPdfDocument _doc;
-        // Insertion point
+        // Insertion point:
         private PointF _ip = new PointF(MarginLeft, MarginTop);
-        // if non-null, DrawText use this to align text to last baseline:
+        // If non-null, DrawText use this to align text to last baseline:
         private float? _lastBaselineOffset = null;
         // Shortcuts to current values:
         private int CurrPageIdx => _doc.Pages.Count - 1;
@@ -99,7 +99,7 @@ namespace GcPdfWeb.Samples.OrderReturnForm
         // Static ctor:
         static GoodsReturnForm()
         {
-            // init Textbox:
+            // Init Textbox:
             TextLayout tl = new TextLayout() { Resolution = 72 };
             tl.Append("Qwerty");
             tl.DefaultFormat.Font = Textbox.Font;
@@ -107,7 +107,7 @@ namespace GcPdfWeb.Samples.OrderReturnForm
             tl.PerformLayout(true);
             Textbox.Height = tl.ContentHeight;
             Textbox.BaselineOffset = tl.Lines[0].GlyphRuns[0].BaselineOffset;
-            // init Checkbox:
+            // Init Checkbox:
             tl.Clear();
             tl.Append("Qwerty");
             tl.DefaultFormat.Font = Checkbox.Font;
@@ -134,14 +134,14 @@ namespace GcPdfWeb.Samples.OrderReturnForm
             _lastBaselineOffset = null;
         }
 
-        // Creates the PDF form.
+        // Creates the PDF form:
         private void Acme()
         {
             _doc = new GcPdfDocument();
             _doc.NewPage();
             var pageWidth = CurrPage.Size.Width;
 
-            // main caption:
+            // Main caption:
             SetY(null, -2);
             var cr = DrawText("ACME Inc.", TsTitle);
             SetY(null, _lastBaselineOffset - CaptionLineThickness / 2);
@@ -502,9 +502,9 @@ namespace GcPdfWeb.Samples.OrderReturnForm
         {
             float[] widths = new float[]
             {
-                35,
+                55,
                 60,
-                80,
+                60,
                 35,
                 35,
                 200,

@@ -15,12 +15,13 @@ namespace GcPdfWeb.Samples
             GcPdfDocument doc = new GcPdfDocument();
             // Add a page, get its graphics:
             GcPdfGraphics g = doc.NewPage().Graphics;
-            // Render a string into the page:
+            // Draw a string on the page.
+            // Notes:
+            // - For simplicity, here we are using a standard PDF font
+            //   (the 14 standard fonts' metrics are built into GcPdf and are always available);
+            // - GcPdf coordinates start at top left corner of a page, using 72 dpi by default:
             g.DrawString("Hello, World!",
-                // Use a standard font (the 14 standard PDF fonts are built into GcPdf
-                // and are always available):
                 new TextFormat() { Font = StandardFonts.Times, FontSize = 12 },
-                // GcPdf page coordinates start at top left corner, using 72 dpi by default:
                 new PointF(72, 72));
             // Save the PDF:
             doc.Save(stream);

@@ -6,9 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="GrapeCity.Documents.Pdf" Version="1.0.0.105" />
-    <PackageReference Include="GrapeCity.Documents.Barcode" Version="1.0.0.105" />
-    <PackageReference Include="GrapeCity.Documents.Common.Windows" Version="1.0.0.105" />
+    <PackageReference Include="GrapeCity.Documents.Barcode" Version="2.0.0.201" />
+    <PackageReference Include="GrapeCity.Documents.Common" Version="2.0.0.201" />
+    <PackageReference Include="GrapeCity.Documents.Common.Windows" Version="2.0.0.201" />
+    <PackageReference Include="GrapeCity.Documents.DX.Windows" Version="2.0.0.201" />
+    <PackageReference Include="GrapeCity.Documents.Pdf" Version="2.0.0.201" />
   </ItemGroup>
 
   <ItemGroup>

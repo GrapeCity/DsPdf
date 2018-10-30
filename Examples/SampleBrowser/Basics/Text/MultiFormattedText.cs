@@ -7,7 +7,8 @@ using GrapeCity.Documents.Text;
 
 namespace GcPdfWeb.Samples.Basics
 {
-    // Shows how to use different text formats (fonts, colors) in a single paragraph.
+    // This sample shows how to use different text formats
+    // (fonts, colors) in a single paragraph.
     public class MultiFormattedText
     {
         public void CreatePDF(Stream stream)
@@ -60,7 +61,7 @@ namespace GcPdfWeb.Samples.Basics
             tf.Font = fArial;
             tf.FontSize += 2;
             tl.Append(makeSampleText(tf), tf);
-            // ...add some colors:
+            // Add text with different foreground and background colors:
             tf.Font = fTimesBold;
             tf.ForeColor = Color.Tomato;
             tl.Append(makeSampleText(tf), tf);
@@ -69,7 +70,7 @@ namespace GcPdfWeb.Samples.Basics
             tf.ForeColor = Color.SlateBlue;
             tf.BackColor = Color.Orange;
             tl.Append(makeSampleText(tf), tf);
-            // ...and finish with plain black on transparent again:
+            // Finish with plain black on transparent again:
             tl.Append("The end.", new TextFormat() { Font = fTimes, FontSize = 14, });
             // Layout and draw text:
             tl.PerformLayout(true);

@@ -15,7 +15,6 @@ namespace GcPdfWeb.Samples
         public void CreatePDF(Stream stream)
         {
             GcPdfDocument doc = new GcPdfDocument();
-
             // The original file stream must be kept open while working with the loaded PDF, see LoadPDF for details:
             using (var fs = new FileStream(Path.Combine("Resources", "PDFs", "BalancedColumns.pdf"), FileMode.Open, FileAccess.Read))
             {

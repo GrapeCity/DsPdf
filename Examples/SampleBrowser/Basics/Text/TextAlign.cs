@@ -37,7 +37,7 @@ namespace GcPdfWeb.Samples.Basics
             tl.Append(makePara());
             tl.PerformLayout(true);
             g.DrawTextLayout(tl, ip);
-            // advance insertion point, adding one line's height between paragraphs
+            // Advance insertion point, adding one line's height between paragraphs:
             ip.Y += tl.ContentHeight + tl.Lines[0].Height;
             // Center:
             tl.Clear();
@@ -46,7 +46,7 @@ namespace GcPdfWeb.Samples.Basics
             tl.Append(makePara());
             tl.PerformLayout(true);
             g.DrawTextLayout(tl, ip);
-            // advance insertion point, adding one line's height between paragraphs
+            // Advance insertion point, adding one line's height between paragraphs:
             ip.Y += tl.ContentHeight + tl.Lines[0].Height;
             // Trailing:
             tl.Clear();
@@ -55,7 +55,7 @@ namespace GcPdfWeb.Samples.Basics
             tl.Append(makePara());
             tl.PerformLayout(true);
             g.DrawTextLayout(tl, ip);
-            // advance insertion point, adding one line's height between paragraphs
+            // Advance insertion point, adding one line's height between paragraphs:
             ip.Y += tl.ContentHeight + tl.Lines[0].Height;
             // Justified:
             tl.Clear();
@@ -64,7 +64,7 @@ namespace GcPdfWeb.Samples.Basics
             tl.Append(makePara());
             tl.PerformLayout(true);
             g.DrawTextLayout(tl, ip);
-            // advance insertion point, adding one line's height between paragraphs
+            // Advance insertion point, adding one line's height between paragraphs:
             ip.Y += tl.ContentHeight + tl.Lines[0].Height;
             // Distributed:
             tl.Clear();
@@ -73,7 +73,7 @@ namespace GcPdfWeb.Samples.Basics
             tl.Append(makePara());
             tl.PerformLayout(true);
             g.DrawTextLayout(tl, ip);
-            //
+            // Done:
             doc.Save(stream);
         }
     }

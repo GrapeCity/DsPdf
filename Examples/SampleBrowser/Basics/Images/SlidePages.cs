@@ -18,10 +18,10 @@ namespace GcPdfWeb.Samples
     // the same image object on all pages. So rather than loading the same image from
     // file (or stream) each time it is needed, it is always preferable to load the image
     // once and cache it in an image object. This applies to all image types available in
-    // GcPdf (Image, RawImage, ImageWrapper).
+    // GcPdf (Image, RawImage).
     public class SlidePages
     {
-        public void CreatePDF(Stream stream)
+        public int CreatePDF(Stream stream)
         {
             var doc = new GcPdfDocument();
             // Get a font for captions:
@@ -33,7 +33,7 @@ namespace GcPdfWeb.Samples
             // Load all images from the Resources/Images folder:
             List<Tuple<string, Image>> images = new List<Tuple<string, Image>>();
             foreach (var fname in Directory.GetFiles(Path.Combine("Resources", "Images"), "*", SearchOption.AllDirectories))
-                images.Add(Tuple.Create<string, Image>(Path.GetFileName(fname), Util.ImageFromFile(fname)));
+                images.Add(Tuple.Create(Path.GetFileName(fname), Util.ImageFromFile(fname)));
             images.Shuffle();
             // Print all images as slide sheets in a 3x4 grid with 1/2" margins all around:
             const float margin = 36;
@@ -72,7 +72,7 @@ namespace GcPdfWeb.Samples
                 // will be returned):
                 g.DrawImage(images[i].Item2, rect, null, ia, out RectangleF[] imageRect);
                 g.DrawRectangle(imageRect[0], Color.DarkGray, 1);
-                // print image file name as caption in the bottom slide margin:
+                // Print image file name as caption in the bottom slide margin:
                 g.DrawString(Path.GetFileName(images[i].Item1), tf, 
                     new RectangleF(rect.X, rect.Bottom, rect.Width, sMargin),
                     TextAlignment.Center, ParagraphAlignment.Near, false);
@@ -90,6 +90,9 @@ namespace GcPdfWeb.Samples
             }
             // Done:
             doc.Save(stream);
+            // Dispose images after saving the PDF:
+            images.ForEach(t_ => t_.Item2.Dispose());
+            return doc.Pages.Count;
         }
     }
 }

@@ -38,9 +38,11 @@ namespace GcPdfWeb.Samples
         private float _inputMargin = 5;
         // Space for employee's signature:
         private RectangleF _empSignRect;
+        // This will hold the llst of images so we can dispose them after saving the document:
+        private List<IDisposable> _disposables = new List<IDisposable>();
 
         // Main entry point of this sample:
-        public void CreatePDF(Stream stream)
+        public int CreatePDF(Stream stream)
         {
             // Set up a font collection with the fonts we need:
             _fc.RegisterDirectory(Path.Combine("Resources", "Fonts"));
@@ -96,6 +98,9 @@ namespace GcPdfWeb.Samples
 
             // Done, now save the document with supervisor signature:
             doc.Sign(sp, stream);
+            // Dispose images only after the document is saved:
+            _disposables.ForEach(d_ => d_.Dispose());
+            return doc.Pages.Count;
         }
 
         // Replaces any text fields in the document with regular text:
@@ -119,7 +124,7 @@ namespace GcPdfWeb.Samples
                     doc.AcroForm.Fields.RemoveAt(i);
         }
 
-        // data fields names:
+        // Data field names:
         static class _Names
         {
             public static readonly string[] Dows = new string[]
@@ -168,6 +173,7 @@ namespace GcPdfWeb.Samples
             ip.Y += tl.ContentHeight + 15;
 
             var logo = Image.FromFile(Path.Combine("Resources", "ImagesBis", "AcmeLogo-vertical-250px.png"));
+            _disposables.Add(logo);
             var s = new SizeF(250f * 0.75f, 64f * 0.75f);
             g.DrawImage(logo, new RectangleF(ip, s), null, ImageAlign.Default);
             ip.Y += s.Height + 5;
@@ -200,6 +206,7 @@ namespace GcPdfWeb.Samples
             tl.ParagraphAlignment = ParagraphAlignment.Center;
             tl.TextAlignment = TextAlignment.Leading;
             tl.MarginLeft = tl.MarginRight = tl.MarginTop = tl.MarginBottom = 4;
+
             // t_ - caption
             // b_ - bounds
             // f_ - field name, null means no field
@@ -320,9 +327,7 @@ namespace GcPdfWeb.Samples
                 throw new Exception("Table must have some columns and rows.");
 
             RectangleF[,] cells = new RectangleF[widths.Length, heights.Length];
-
             var r = new RectangleF(loc, new SizeF(widths.Sum(), heights.Sum()));
-
             // Draw left borders (except for 1st one):
             float x = loc.X;
             for (int i = 0; i < widths.Length; ++i)
@@ -371,11 +376,11 @@ namespace GcPdfWeb.Samples
             TimeSpan wkTot = TimeSpan.Zero, wkReg = TimeSpan.Zero, wkOvr = TimeSpan.Zero;
             for (int i = 0; i < 7; ++i)
             {
-                // start time:
+                // Start time:
                 var start = new DateTime(workday.Year, workday.Month, workday.Day, rand.Next(6, 12), rand.Next(0, 59), 0);
                 SetFieldValue(doc, _Names.DtNames[_Names.Dows[i]][0], start.ToShortDateString());
                 SetFieldValue(doc, _Names.DtNames[_Names.Dows[i]][1], start.ToShortTimeString());
-                // end time:
+                // End time:
                 var end = start.AddHours(rand.Next(8, 14)).AddMinutes(rand.Next(0, 59));
                 SetFieldValue(doc, _Names.DtNames[_Names.Dows[i]][2], end.ToShortTimeString());
                 var tot = end - start;
@@ -398,6 +403,7 @@ namespace GcPdfWeb.Samples
             // 'Sign' the time sheet on behalf of the employee by drawing an image representing the signature
             // (see TimeSheetIncremental for digitally signing by both employee and supervisor):
             var empSignImage = Image.FromFile(Path.Combine("Resources", "ImagesBis", "signature.png"));
+            _disposables.Add(empSignImage);
             var ia = new ImageAlign(ImageAlignHorz.Center, ImageAlignVert.Center, true, true, true, false, false)
             { KeepAspectRatio = true };
             doc.Pages[0].Graphics.DrawImage(empSignImage, _empSignRect, null, ia);

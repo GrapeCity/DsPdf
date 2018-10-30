@@ -23,16 +23,14 @@ namespace GcPdfWeb.Samples.Basics
 
         public void CreatePDF(Stream stream)
         {
-            // Create a new PDF document:
             var doc = new GcPdfDocument();
-            // Add a page and get its graphics to draw on:
             var g = doc.NewPage().Graphics;
-            // Create the action:
             ActionJavaScript jsAction = new ActionJavaScript(js);
-            // Create a text format to draw the "Hello World!" string:
-            TextFormat tf = new TextFormat();
-            tf.Font = StandardFonts.Times;
-            tf.FontSize = 14;
+            TextFormat tf = new TextFormat()
+            {
+                Font = StandardFonts.Times,
+                FontSize = 14
+            };
             // Draw the link string in a rectangle:
             var text = "Click this to show the popup menu.";
             var rect = new RectangleF(new PointF(72, 72), g.MeasureString(text, tf));

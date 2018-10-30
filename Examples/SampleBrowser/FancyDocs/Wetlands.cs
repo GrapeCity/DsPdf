@@ -13,11 +13,23 @@ namespace GcPdfWeb.Samples
     // using the TextLayout class to arrange text and images.
     public class Wetlands
     {
-
         // The main sample driver.
-        public void CreatePDF(Stream stream)
+        public int CreatePDF(Stream stream)
         {
             GcPdfDocument doc = new GcPdfDocument();
+            // This will hold the llst of images so we can dispose them after saving the document:
+            List<IDisposable> disposables = new List<IDisposable>();
+
+            // Page footer:
+            var ftrImg = Image.FromFile(Path.Combine("Resources", "ImagesBis", "logo-GC-devsol.png"));
+            disposables.Add(ftrImg);
+            var fx = ftrImg.HorizontalResolution / 72f;
+            var fy = ftrImg.VerticalResolution / 72f;
+            var ftrRc = new RectangleF(
+                doc.PageSize.Width / 2 - ftrImg.Width / fx / 2,
+                doc.PageSize.Height - 40,
+                ftrImg.Width / fx,
+                ftrImg.Height / fy);
 
             // Color for the title:
             var colorBlue = Color.FromArgb(0x3B, 0x5C, 0xAA);
@@ -37,6 +49,7 @@ namespace GcPdfWeb.Samples
             tl.DefaultFormat.FontSize = 11;
 
             var page = doc.NewPage();
+            addFtr();
             var g = page.Graphics;
 
             // Caption:
@@ -65,8 +78,7 @@ namespace GcPdfWeb.Samples
             tl.MarginTop = tl.ContentRectangle.Bottom;
             tl.Clear();
             tl.FirstLineIndent = 36;
-            // This will hold the llst of images:
-            List<InlineObject> images = new List<InlineObject>();
+
             // Add remaining paragraphs:
             foreach (var para in _paras.Skip(1))
             {
@@ -74,6 +86,7 @@ namespace GcPdfWeb.Samples
                 if (para.StartsWith("::"))
                 {
                     var img = Image.FromFile(Path.Combine("Resources", "ImagesBis", para.Substring(2)));
+                    disposables.Add(img);
                     var w = tl.MaxWidth.Value - tl.MarginLeft - tl.MarginRight;
                     var h = (float)img.Height / (float)img.Width * w;
                     tl.AppendInlineObject(img, w, h);
@@ -110,10 +123,15 @@ namespace GcPdfWeb.Samples
                 // Assign the remaining text to the 'main' TextLayout, add a new page and continue:
                 tl = rest;
                 doc.Pages.Add();
+                addFtr();
             }
 
-            // Done:
+            // Save the PDF:
             doc.Save(stream);
+            // Dispose images (can be done only after saving the document):
+            disposables.ForEach(d_ => d_.Dispose());
+            // Done:
+            return doc.Pages.Count;
 
             void addPara(string para)
             {
@@ -127,6 +145,11 @@ namespace GcPdfWeb.Samples
                         tl.Append(txt[i], new TextFormat(tl.DefaultFormat) { ForeColor = colorRed });
                 }
                 tl.AppendLine();
+            }
+
+            void addFtr()
+            {
+                doc.Pages.Last.Graphics.DrawImage(ftrImg, ftrRc, null, ImageAlign.StretchImage);
             }
         }
 

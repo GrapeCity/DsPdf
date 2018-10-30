@@ -15,7 +15,7 @@ namespace GcPdfWeb.Samples.Basics
     {
         public void CreatePDF(Stream stream)
         {
-            // Rotation angle, degrees clockwise
+            // Rotation angle, degrees clockwise:
             float angle = -45;
             //
             var doc = new GcPdfDocument();
@@ -37,12 +37,12 @@ namespace GcPdfWeb.Samples.Basics
             // Note that matrix multiplication is not commutative - 
             // the sequence of operands is important, and is applied from last to first
             // matrices being multiplied:
+            // 3) Translate the origin back to (0,0):
+            // 2) Rotate around new origin by the specified angle:
+            // 1) Translate the origin from default (0,0) to rotation center:
             g.Transform =
-                // 3) Translate the origin back to (0,0):
                 Matrix3x2.CreateTranslation(-center.X, -center.Y) *
-                // 2) Rotate around new origin by the specified angle:
                 Matrix3x2.CreateRotation((float)(angle * Math.PI) / 180f) *
-                // 1) Translate the origin from default (0,0) to rotation center:
                 Matrix3x2.CreateTranslation(center.X, center.Y);
             // Draw rotated text and bounding rectangle:
             g.DrawTextLayout(tl, ip);
@@ -50,7 +50,7 @@ namespace GcPdfWeb.Samples.Basics
             // Remove transformation and draw the bounding rectangle where the non-rotated text would have been:
             g.Transform = Matrix3x2.Identity;
             g.DrawRectangle(rect, Color.ForestGreen, 1);
-            //
+            // Done:
             doc.Save(stream);
         }
     }

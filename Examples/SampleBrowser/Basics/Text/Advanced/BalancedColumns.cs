@@ -61,7 +61,6 @@ namespace GcPdfWeb.Samples.Basics
                 MinLinesInFirstParagraph = 2,
                 MinLinesInLastParagraph = 2
             };
-            //
             // Generate a number of "chapters", provide outline entry for each:
             const int NChapters = 20;
             doc.Pages.Add();
@@ -82,7 +81,7 @@ namespace GcPdfWeb.Samples.Basics
                 tl.Clear();
                 tl.Append(Common.Util.LoremIpsum(5, 7, 9, 15, 25));
                 tl.PerformLayout(true);
-                // var to hold last chapter end's bottom coord:
+                // Variable to hold last chapter end's bottom coord:
                 float contentBottom = 0f;
                 // Print the chapter:
                 var tls = new TextLayoutSplitter(tl);

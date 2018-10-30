@@ -11,6 +11,7 @@ namespace GcPdfWeb.Samples.Basics
     // Shows how to use graphics transformations (GcPdfGraphics.Transform property).
     public class Transforms
     {
+        // Helper method drawing a filled box with text:
         private void DrawBox(string text, GcGraphics g, RectangleF box)
         {
             g.FillRectangle(box, Color.FromArgb(80, 0, 184, 204));
@@ -31,8 +32,9 @@ namespace GcPdfWeb.Samples.Basics
             //
             var translate0 = Matrix3x2.CreateTranslation(72 * 1, 72 * 4);
             var scale0 = Matrix3x2.CreateScale(0.5f);
-            //
+
             // Transforms are applied in order from last to first.
+
             // #2:
             g.Transform =
                 scale0 *
@@ -71,7 +73,8 @@ namespace GcPdfWeb.Samples.Basics
             DrawBox($"Box 7: {baseTxt}, translated by (7.5\",10\"), and rotated by 180 degrees.", g, box);
             // We can remove any transformations on a graphics like so:
             g.Transform = Matrix3x2.Identity;
-            //
+
+            // Done:
             doc.Save(stream);
         }
     }

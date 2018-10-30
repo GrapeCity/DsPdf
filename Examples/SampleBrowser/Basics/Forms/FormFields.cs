@@ -56,7 +56,7 @@ namespace GcPdfWeb.Samples
             doc.AcroForm.Fields.Add(fldRadio);
             ip.Y = fldRadio.Widgets[fldRadio.Widgets.Count - 1].Rect.Y + dY;
 
-            // CombTextField
+            // CombTextField:
             g.DrawString("CombText field:", tf, ip);
             var fldCombText = new CombTextField();
             fldCombText.Value = "123";
@@ -107,6 +107,7 @@ namespace GcPdfWeb.Samples
 
             // Buttons:
             g.DrawString("Push buttons:", tf, ip);
+
             // Submit form button:
             var btnSubmit = new PushButtonField();
             btnSubmit.Widget.Rect = new RectangleF(ip.X + fldOffset, ip.Y, 72, fldHeight);

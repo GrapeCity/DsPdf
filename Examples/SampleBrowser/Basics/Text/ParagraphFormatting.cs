@@ -5,7 +5,7 @@ using GrapeCity.Documents.Pdf;
 
 namespace GcPdfWeb.Samples.Basics
 {
-    // Demonstrates the most basic paragraph formatting options:
+    // This sample demonstrates the most basic paragraph formatting options:
     // - first line indent;
     // - line spacing.
     public class ParagraphFormatting
@@ -26,7 +26,7 @@ namespace GcPdfWeb.Samples.Basics
             tl.MaxWidth = doc.PageSize.Width;
             tl.MaxHeight = doc.PageSize.Height;
             // ...and have it manage the page margins (1" all around):
-            tl.MarginLeft = tl.MarginTop = tl.MarginRight = tl.MarginBottom = tl.Resolution;
+            tl.MarginAll = tl.Resolution;
             // First line offset 1/2":
             tl.FirstLineIndent = 72 / 2;
             // 1.5 line spacing:
@@ -36,7 +36,7 @@ namespace GcPdfWeb.Samples.Basics
             tl.PerformLayout(true);
             // Render text at (0,0) (margins are added by TextLayout):
             g.DrawTextLayout(tl, PointF.Empty);
-            //
+            // Done:
             doc.Save(stream);
         }
     }

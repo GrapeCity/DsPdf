@@ -7,8 +7,7 @@ using GrapeCity.Documents.Text;
 namespace GcPdfWeb.Samples.Basics
 {
     // Generates a large PDF.
-    // This sample is identical to StartEndDoc, but does not use the StartDoc/EndDoc
-    // method, thus using more memory, but probably improving the performance.
+    // This sample is identical to StartEndDoc, but does not use the StartDoc/EndDoc method.
     public class LargeDocument2
     {
         public int CreatePDF(Stream stream)

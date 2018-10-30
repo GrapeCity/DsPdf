@@ -67,7 +67,8 @@ namespace GcPdfWeb.Samples
             // Insertion point of the next figure's center:
             PointF startIp = new PointF(grid.MarginX + grid.StepX / 2, grid.MarginY + grid.StepY / 2 + 10);
             PointF ip = startIp;
-            /* // Debug code to show the layout grid:
+            // Debug code to show the layout grid:
+            /* 
             var ipp = ip;
             for (int i = 0; i < grid.Cols; ++i)
             {
@@ -168,9 +169,11 @@ namespace GcPdfWeb.Samples
             Func<Vector3, PointF> p3d = v_ => project(v_.X, v_.Y, v_.Z);
             float hedge = grid.Radius; // 1/2 edge
             // Debug - draw the 3 axis:
-            // g.DrawLine(project(0, 0, 0), project(100, 0, 0), Color.Red);
-            // g.DrawLine(project(0, 0, 0), project(0, 100, 0), Color.Green);
-            // g.DrawLine(project(0, 0, 0), project(0, 0, 100), Color.Blue);
+            /*
+            g.DrawLine(project(0, 0, 0), project(100, 0, 0), Color.Red);
+            g.DrawLine(project(0, 0, 0), project(0, 100, 0), Color.Green);
+            g.DrawLine(project(0, 0, 0), project(0, 0, 100), Color.Blue);
+            */
             // 3d points forming a square pyramid:
             var pts3d = new Vector3[]
             {
@@ -180,7 +183,7 @@ namespace GcPdfWeb.Samples
                 new Vector3(-hedge, hedge, 0),
                 new Vector3(0, 0, hedge * 2),
             };
-            // project the points to draw the pyramid:
+            // Project the points to draw the pyramid:
             pts = pts3d.Select(v_ => p3d(v_)).ToArray();
             g.Transform = Matrix3x2.CreateTranslation(ip.X, ip.Y + hedge * 0.7f);
             // Visible edges:

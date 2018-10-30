@@ -14,7 +14,7 @@ namespace GcPdfWeb.Samples.Basics
     {
         public void CreatePDF(Stream stream)
         {
-            // Rotation angle, degrees clockwise
+            // Rotation angle, degrees clockwise:
             float angle = -45;
             //
             var doc = new GcPdfDocument();

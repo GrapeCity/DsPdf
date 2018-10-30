@@ -35,9 +35,11 @@ namespace GcPdfWeb.Samples
         private float _inputMargin = 5;
         // Space for employee's signature:
         private RectangleF _empSignRect;
+        //
+        private Image _logo;
 
         // Main entry point of this sample:
-        public void CreatePDF(Stream stream)
+        public int CreatePDF(Stream stream)
         {
             // Set up a font collection with the fonts we need:
             _fc.RegisterDirectory(Path.Combine("Resources", "Fonts"));
@@ -89,11 +91,13 @@ namespace GcPdfWeb.Samples
 
                 // Any changes to the document would invalidate the employee's signature, so we cannot do this:
                 // supSign.Widget.ButtonAppearance.Caption = supName;
-
+                //
                 // Done, now save the document with supervisor signature:
                 // NOTE: in order to not invalidate the employee's signature,
                 // we MUST use incremental update here (which is true by default in Sign() method):
                 doc.Sign(sp, stream);
+                _logo.Dispose();
+                return doc.Pages.Count;
             }
         }
 
@@ -119,7 +123,7 @@ namespace GcPdfWeb.Samples
                     doc.AcroForm.Fields.RemoveAt(i);
         }
 
-        // data fields names:
+        // Data field names:
         static class _Names
         {
             public static readonly string[] Dows = new string[]
@@ -167,9 +171,9 @@ namespace GcPdfWeb.Samples
             g.DrawTextLayout(tl, ip);
             ip.Y += tl.ContentHeight + 15;
 
-            var logo = Image.FromFile(Path.Combine("Resources", "ImagesBis", "AcmeLogo-vertical-250px.png"));
+            _logo = Image.FromFile(Path.Combine("Resources", "ImagesBis", "AcmeLogo-vertical-250px.png"));
             var s = new SizeF(250f * 0.75f, 64f * 0.75f);
-            g.DrawImage(logo, new RectangleF(ip, s), null, ImageAlign.Default);
+            g.DrawImage(_logo, new RectangleF(ip, s), null, ImageAlign.Default);
             ip.Y += s.Height + 5;
 
             tl.Clear();
@@ -200,6 +204,7 @@ namespace GcPdfWeb.Samples
             tl.ParagraphAlignment = ParagraphAlignment.Center;
             tl.TextAlignment = TextAlignment.Leading;
             tl.MarginLeft = tl.MarginRight = tl.MarginTop = tl.MarginBottom = 4;
+
             // t_ - caption
             // b_ - bounds
             // f_ - field name, null means no field
@@ -347,7 +352,7 @@ namespace GcPdfWeb.Samples
             }
             // Draw outer border:
             g.DrawRectangle(r, p);
-            //
+            // Done:
             return cells;
         }
 
@@ -368,11 +373,11 @@ namespace GcPdfWeb.Samples
             TimeSpan wkTot = TimeSpan.Zero, wkReg = TimeSpan.Zero, wkOvr = TimeSpan.Zero;
             for (int i = 0; i < 7; ++i)
             {
-                // start time:
+                // Start time:
                 var start = new DateTime(workday.Year, workday.Month, workday.Day, rand.Next(6, 12), rand.Next(0, 59), 0);
                 SetFieldValue(doc, _Names.DtNames[_Names.Dows[i]][0], start.ToShortDateString());
                 SetFieldValue(doc, _Names.DtNames[_Names.Dows[i]][1], start.ToShortTimeString());
-                // end time:
+                // End time:
                 var end = start.AddHours(rand.Next(8, 14)).AddMinutes(rand.Next(0, 59));
                 SetFieldValue(doc, _Names.DtNames[_Names.Dows[i]][2], end.ToShortTimeString());
                 var tot = end - start;

@@ -10,11 +10,11 @@ namespace GcPdfWeb.Samples
     // This sample demonstrates the use of Security.EncryptHandler and Security.DecryptHandler.
     // Security.DecryptHandler allows to examine the security attributes of an existing PDF.
     // Security.EncryptHandler allows to specify security attributes when saving a PDF.
-    // GcPdf supports Standard Security Handlers revisions 2, 3 and 4 (as defined in the PDF Spec).
+    // GcPdf supports Standard Security Handlers revisions 2, 3, 4 and 5 (as defined in the PDF Spec).
     // In this sample, we use StandardSecurityHandlerRev4 which provides the most options.
     public class SecurityHandlers
     {
-        public void CreatePDF(Stream stream)
+        public int CreatePDF(Stream stream)
         {
             // Sample passwords:
             var ownerPassword = "I'm the owner";
@@ -105,6 +105,8 @@ namespace GcPdfWeb.Samples
             }
             // Clean up the temp file:
             File.Delete(fn);
+            // Done:
+            return doc.Pages.Count;
         }
     }
 }

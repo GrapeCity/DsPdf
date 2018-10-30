@@ -13,7 +13,6 @@ namespace GcPdfWeb.Samples
         public void CreatePDF(Stream stream)
         {
             GcPdfDocument doc = new GcPdfDocument();
-
             // IMPORTANT: when working with an existing PDF file using GcPdfDocument.Load() method,
             // the stream passed to that method MUST REMAIN OPEN while working with the document.
             // This is because Load() does not load the whole PDF document into memory right away,

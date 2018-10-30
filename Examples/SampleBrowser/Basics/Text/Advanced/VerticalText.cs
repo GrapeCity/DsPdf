@@ -41,7 +41,7 @@ namespace GcPdfWeb.Samples.Basics
             // This setting justifies the last line too:
             tl.LastLineIsEndOfParagraph = false;
             // Set all margins to 1":
-            tl.MarginLeft = tl.MarginTop = tl.MarginRight = tl.MarginBottom = tl.Resolution;
+            tl.MarginAll = tl.Resolution;
             tl.MaxWidth = page.Size.Width;
             tl.MaxHeight = page.Size.Height;
             // RTL layout:

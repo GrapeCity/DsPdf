@@ -85,7 +85,7 @@ namespace GcPdfWeb.Samples.Basics
             tf.Font = font;
             g.DrawString($"Gabriola Font, linked with Eudc0.tte: {tstr}", tf, ip);
             ip.Y += dy;
-            //
+            // Done:
             doc.Save(stream);
         }
     }

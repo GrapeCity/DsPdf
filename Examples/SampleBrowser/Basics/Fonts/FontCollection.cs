@@ -20,7 +20,7 @@ namespace GcPdfWeb.Samples
     //
     // 2. Populate the font collection with fonts using any of the follwing methods:
     //    - RegisterDirectory(): registers all fonts found in a specified directory;
-    //    - RegisterFont(): registers font(s) found in a specified fiile;
+    //    - RegisterFont(): registers font(s) found in a specified file;
     //    - Add(Font): adds a font instance that you created.
     //    Note that registering directories or fonts with a font collection is a fast 
     //    and light-weight operation. The font collection does not actually load all font data
@@ -37,7 +37,7 @@ namespace GcPdfWeb.Samples
     //    flags (TextFormat.FontBold/FontItalic). If a suitable bold/italic version of the requested
     //    font is found in the collection, it will be used; otherwise font emulation will be applied.
     //
-    // -- FontCollection methods and properties are thread-safe, so once your font collection
+    // 5. FontCollection methods and properties are thread-safe, so once your font collection
     //    has been populated, you can cache and share it between sessions and/or modules
     //    of your application. You do need to exercise caution when modifying and accessing
     //    the font collection simultaneously from different threads though, as it may change

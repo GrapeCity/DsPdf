@@ -25,7 +25,7 @@ namespace GcPdfWeb.Samples
             public int PageIdx;
         }
 
-        public void CreatePDF(Stream stream)
+        public int CreatePDF(Stream stream)
         {
             var doc = new GcPdfDocument();
             var font = Font.FromFile(Path.Combine("Resources", "Fonts", "segoeui.ttf"));
@@ -87,7 +87,7 @@ namespace GcPdfWeb.Samples
                 rect.Inflate(-sMargin, -sMargin);
                 g.DrawImage(ii.Image, rect, null, ia, out RectangleF[] imageRect);
                 g.DrawRectangle(imageRect[0], Color.DarkGray, 1);
-                // print image file name as caption in the bottom slide margin:
+                // Print image file name as caption in the bottom slide margin:
                 g.DrawString(ii.Name, tf, 
                     new RectangleF(rect.X, rect.Bottom, rect.Width, sMargin),
                     TextAlignment.Center, ParagraphAlignment.Near, false);
@@ -110,10 +110,12 @@ namespace GcPdfWeb.Samples
             {
                 foreach (var ann in doc.Pages[i].Annotations)
                     if (ann is LinkAnnotation link && link.Dest is DestinationFit dest)
-                        link.Dest = new DestinationFit(dest.PageIndex + tocPages);
+                        link.Dest = new DestinationFit(dest.PageIndex.Value + tocPages);
             }
             // Done:
             doc.Save(stream);
+            imageInfos.ForEach((ii_) => ii_.Image.Dispose());
+            return doc.Pages.Count;
         }
     }
 }

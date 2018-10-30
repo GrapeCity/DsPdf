@@ -25,7 +25,7 @@ namespace GcPdfWeb.Samples.Basics
     //
     // This sample demonstrates the StartDoc/EndDoc approach.
     //
-    // Essentially the same code, but without use of StartDoc/EndDoc, is demonstrated by the
+    // Essentially the same code, but without using StartDoc/EndDoc, is demonstrated by the
     // LargeDocument2 sample. See also LinearizedPdf.
     public class StartEndDoc
     {

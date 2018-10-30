@@ -15,8 +15,9 @@ namespace GcPdfWeb.Samples.Basics
     // so that usually a Font instance will not take too much space.
     // The situation is different for fonts created using Font.FromArray()
     // and Font.FromStream() methods - in those cases the whole font is
-    // immediately loaded into memory, so using those methods is generally
-    // not recommended.
+    // immediately loaded into memory. The font will still be parsed
+    // only on demand, but memory consumption is slightly higher,
+    // so using Font.FromFile() should generally be preferred.
     //
     // NOTE 2: When different Font instances (created using any of the static ctors
     // mentioned above) are used to render text in a PDF, each instance will result

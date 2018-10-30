@@ -73,7 +73,7 @@ namespace GcPdfWeb.Samples.Basics
             g.DrawString("Miscellaneous Symbols:", tf, nextIp(true));
             g.DrawString("\u2600 \u2601 \u2602 \u2603 \u2604 \u2605 \u2606 \u2607 \u2608 \u2609 \u2614 \u2615 \u26F0", tf1, nextIp(false));
 
-            //
+            // Done:
             doc.Save(stream);
         }
     }

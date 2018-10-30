@@ -9,7 +9,8 @@ using GrapeCity.Documents.Pdf.Actions;
 
 namespace GcPdfWeb.Samples.Basics
 {
-    // Shows how to attach files to a PDF document.
+    // This sample demonstrates how to create file attachment annotations on a page.
+    // See also the DocAttachments sample that demonstrates document level file attachments.
     public class FileAttachments
     {
         public void CreatePDF(Stream stream)

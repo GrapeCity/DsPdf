@@ -7,10 +7,10 @@ using GrapeCity.Documents.Text;
 
 namespace GcPdfWeb.Samples.Basics
 {
-    // Demonstrates how to create a drop cap in GcPdf.
+    // This sample demonstrates how to create a drop cap in GcPdf.
     public class DropCap
     {
-        public void CreatePDF(Stream stream)
+        public int CreatePDF(Stream stream)
         {
             var doc = new GcPdfDocument();
             var g = doc.NewPage().Graphics;
@@ -66,6 +66,7 @@ namespace GcPdfWeb.Samples.Basics
             g.DrawTextLayout(tlTail, new PointF(72, 72));
             // Done:
             doc.Save(stream);
+            return doc.Pages.Count;
         }
     }
 }

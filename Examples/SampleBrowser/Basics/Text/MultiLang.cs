@@ -67,7 +67,7 @@ namespace GcPdfWeb.Samples.Basics
             Font arialbd = Font.FromFile(Path.Combine("Resources", "Fonts", "arialbd.ttf"));
             Font malgun = Font.FromFile(Path.Combine("Resources", "Fonts", "malgun.ttf"));
             Font segoe = Font.FromFile(Path.Combine("Resources", "Fonts", "segoeui.ttf"));
-            // Add Arual Unicode MS for Chinese, Hindi and Japanese fallbacks:
+            // Add Arial Unicode MS for Chinese, Hindi and Japanese fallbacks:
             Font arialuni = Font.FromFile(Path.Combine("Resources", "Fonts", "arialuni.ttf"));
             segoe.AddLinkedFont(arialuni);
             malgun.AddLinkedFont(arialuni);

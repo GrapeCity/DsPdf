@@ -26,8 +26,10 @@ namespace GcPdfWeb.Samples.Basics
             tl.Append(Common.Util.LoremIpsum(20));
             // Set up columns:
             const int colCount = 3;
-            const float margin = 72 / 2; // 1/2" margins all around
-            const float colGap = margin / 4; // 1/4" gap between columns
+            // 1/2" margins all around:
+            const float margin = 72 / 2;
+            // 1/4" gap between columns:
+            const float colGap = margin / 4;
             float colWidth = (doc.Pages.Last.Size.Width - margin * 2) / colCount - colGap * (colCount - 1);
             tl.MaxWidth = colWidth;
             tl.MaxHeight = doc.Pages.Last.Size.Height - margin * 2;
@@ -37,7 +39,7 @@ namespace GcPdfWeb.Samples.Basics
             int col = 0;
             while (true)
             {
-                // The TextLayout that will hold the rest of the text which did not fit in the current layout:
+                // 'rest' will accept the text that did not fit:
                 var splitResult = tl.Split(null, out TextLayout rest);
                 g.DrawTextLayout(tl, new PointF(margin + col * (colWidth + colGap), margin));
                 if (splitResult != SplitResult.Split)

@@ -15,8 +15,9 @@ namespace GcPdfWeb.Samples.Basics
             var doc = new GcPdfDocument();
             var page = doc.NewPage();
             var g = page.Graphics;
-            var user1 = "Jaime Smith"; // user name for annotations' author
-            var user2 = "Jane Donahue"; // user name for annotations' author
+            // User names for annotations' authors:
+            var user1 = "Jaime Smith";
+            var user2 = "Jane Donahue";
 
             TextFormat tf = new TextFormat() { Font = StandardFonts.Helvetica, FontSize = 10 };
             var noteWidth = 72 * 4;

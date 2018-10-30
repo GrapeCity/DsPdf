@@ -6,7 +6,8 @@ using GrapeCity.Documents.Text;
 
 namespace GcPdfWeb.Samples.Basics
 {
-    // Demonstrates paragraph alignment options (top/center/justified/bottom for horizontal LTR text).
+    // This sample demonstrates paragraph alignment options
+    // (top/center/justified/bottom for horizontal LTR text).
     public class ParagraphAlign
     {
         public void CreatePDF(Stream stream)
@@ -75,7 +76,7 @@ namespace GcPdfWeb.Samples.Basics
             g.DrawTextLayout(tl, bounds.Location);
             g.DrawRectangle(bounds, borderColor);
 
-            //
+            // Done:
             doc.Save(stream);
         }
     }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Reflection;
+using System.Threading;
 using System.IO;
 using System.Linq;
 using System.Drawing;
@@ -27,7 +27,7 @@ namespace GcPdfWeb.Samples.Common
 
         public static Random NewRandom()
         {
-            return new Random((int)DateTime.Now.Ticks + s_gen++);
+            return new Random((int)DateTime.Now.Ticks + Interlocked.Increment(ref s_gen));
         }
 
         // https://stackoverflow.com/questions/4286487/is-there-any-lorem-ipsum-generator-in-c
@@ -142,8 +142,8 @@ namespace GcPdfWeb.Samples.Common
         /// <returns>The Image object.</returns>
         public static Image ImageFromFile(string path)
         {
-            if (GrapeCity.Documents.Drawing.Windows.WicImage.IsSupported)
-                return GrapeCity.Documents.Drawing.Windows.WicImage.FromFile(path);
+            if (GrapeCity.Documents.Imaging.Windows.WicImage.IsSupported)
+                return GrapeCity.Documents.Imaging.Windows.WicImage.FromFile(path);
             return Image.FromFile(path);
         }
     }

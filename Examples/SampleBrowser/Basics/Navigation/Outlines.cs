@@ -62,8 +62,7 @@ namespace GcPdfWeb.Samples.Basics
                 while (true)
                 {
                     // 'rest' will accept the text that did not fit:
-                    TextLayout rest;
-                    var splitResult = tl.Split(to, out rest);
+                    var splitResult = tl.Split(to, out TextLayout rest);
                     doc.Pages.Last.Graphics.DrawTextLayout(tl, PointF.Empty);
                     if (splitResult != SplitResult.Split)
                         break;

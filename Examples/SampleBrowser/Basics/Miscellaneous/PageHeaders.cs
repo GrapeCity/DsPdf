@@ -51,7 +51,6 @@ namespace GcPdfWeb.Samples.Basics
             var noteRect = Common.Util.AddNote(
                 "We flip page orientation in this sample only to show that these page headers can adapt to the changing page size.",
                 page);
-            //
             // Prepare a TextLayout with some long text and print it (see PaginatedText for details):
             var tl = page.Graphics.CreateTextLayout();
             tl.DefaultFormat.Font = StandardFonts.Times;
@@ -67,8 +66,7 @@ namespace GcPdfWeb.Samples.Basics
             // In a loop, split and render the text:
             while (true)
             {
-                TextLayout rest;
-                var splitResult = tl.Split(null, out rest);
+                var splitResult = tl.Split(null, out TextLayout rest);
                 page.Graphics.DrawTextLayout(tl, PointF.Empty);
                 if (splitResult != SplitResult.Split)
                     break;

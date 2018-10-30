@@ -37,18 +37,17 @@ namespace GcPdfWeb.Samples.Basics
             }
         }
 
-        // Main:
+        // Main entry point:
         public void CreatePDF(Stream stream)
         {
             var doc = new GcPdfDocument();
             var ip = new PointF(Layout.Margin, Layout.Margin);
-
+            // Use TextLayout.MarginLeft to reserve space for list numbers/bullets:
             var tl = new TextLayout()
             {
                 MaxWidth = doc.PageSize.Width - Layout.Margin * 2,
                 MaxHeight = doc.PageSize.Height - Layout.Margin * 2,
                 ParagraphSpacing = 8,
-                // Use TextLayout.MarginLeft to reserve space for list numbers/bullets:
                 MarginLeft = Layout.ListOffset,
             };
             tl.DefaultFormat.Font = StandardFonts.Times;

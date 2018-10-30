@@ -13,13 +13,11 @@ namespace GcPdfWeb.Samples
     // signature, by using incremental update (default when using the Sign() method).
     public class SignIncremental
     {
-        public void CreatePDF(Stream stream)
+        public int CreatePDF(Stream stream)
         {
             GcPdfDocument doc = new GcPdfDocument();
-
             // Load a signed document (we use code similar to the SignDoc sample):
             doc.Load(CreateAndSignPdf());
-
             // Init a second certificate:
             var pfxPath = Path.Combine("Resources", "Misc", "JohnDoe.pfx");
             X509Certificate2 cert = new X509Certificate2(File.ReadAllBytes(pfxPath), "secret",
@@ -30,12 +28,10 @@ namespace GcPdfWeb.Samples
                 Location = "GcPdfWeb Sample Browser",
                 SignerName = "Jaime Smith",
             };
-
             // Find the 2nd (not yet filled) signature field:
             var sfld2 = doc.AcroForm.Fields["SecondSignature"] as SignatureField;
             // Connect the signature field and signature props:
             sp2.SignatureField = sfld2 ?? throw new Exception("Unexpected: could not find 'SecondSignature' field");
-
             // Sign and save the document:
             doc.Sign(sp2, stream);
 
@@ -49,7 +45,8 @@ namespace GcPdfWeb.Samples
                     if (!sfld.Value.VerifySignature())
                         throw new Exception($"Failed to verify signature for field {sfld.Name}");
 
-            // Done (the generated and signed docment has already been saved to 'stream').
+            // Done (the generated and signed document has already been saved to 'stream').
+            return doc.Pages.Count;
         }
 
         // This method is almost exactly the same as the SignDoc sample,
@@ -79,7 +76,6 @@ namespace GcPdfWeb.Samples
             sf.Widget.BackColor = Color.LightSeaGreen;
             // Add the signature field to the document:
             doc.AcroForm.Fields.Add(sf);
-
             // Connect the signature field and signature props:
             sp.SignatureField = sf;
 

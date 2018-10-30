@@ -18,7 +18,7 @@ namespace GcPdfWeb.Samples.Basics
     // ParagraphFormatting, TextAlign.
     public class CharacterFormatting
     {
-        public void CreatePDF(Stream stream)
+        public int CreatePDF(Stream stream)
         {
             var doc = new GcPdfDocument();
             var page = doc.NewPage();
@@ -107,6 +107,7 @@ namespace GcPdfWeb.Samples.Basics
             g.DrawTextLayout(tl, ip);
             // Done:
             doc.Save(stream);
+            return doc.Pages.Count;
         }
     }
 }

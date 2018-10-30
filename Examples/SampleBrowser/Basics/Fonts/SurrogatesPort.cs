@@ -21,7 +21,6 @@ namespace GcPdfWeb.Samples.Basics
             var doc = new GcPdfDocument();
             var page = doc.NewPage();
             var g = page.Graphics;
-
             // As in the Surrogates sample, we specify a standard font
             // (which lacks many of the glyphs we will be rendering),
             // and will rely on font fallback support provided by FontCollection:
@@ -45,18 +44,17 @@ namespace GcPdfWeb.Samples.Basics
                 Font.FromFile(Path.Combine("Resources", "Fonts", "times.ttf")),
                 Font.FromFile(Path.Combine("Resources", "Fonts", "YuGothR.ttc"))
                 );
-
             // Restricting default font lookup is done in the TextLayout, so unlike the
             // {Surrogates} sample, here we cannot use DrawString, but must use
             // TextLayout and DrawTextLayout directly:
+            // - specify the font collection to use;
+            // - restrict default fonts/fallbacks lookup to the specified collection only;
+            // - set up other props to render the text.
             TextLayout tl = new TextLayout()
             {
-                // Specify the font collection to use:
                 FontCollection = fc,
-                // Restrict default fonts/fallbacks lookup to the specified collection only:
                 RestrictedFontLookup = true,
                 FontFallbackScope = FontFallbackScope.FontCollectionOnly,
-                // Set up other props to render the text:
                 MaxWidth = page.Size.Width,
                 MaxHeight = page.Size.Height,
                 MarginLeft = 72,
@@ -126,7 +124,8 @@ namespace GcPdfWeb.Samples.Basics
 
             tl.PerformLayout(true);
             g.DrawTextLayout(tl, PointF.Empty);
-            //
+
+            // Done:
             doc.Save(stream);
         }
     }

@@ -7,7 +7,7 @@ using GrapeCity.Documents.Drawing;
 
 namespace GcPdfWeb.Samples.Basics
 {
-    // Demonstrates the basics of rendering text in GcPdf.
+    // This sample demonstrates the basics of rendering text in GcPdf.
     // The two main approaches are:
     // - using the MeasureString/DrawString pair, or
     // - using the TextLayout directly.
@@ -43,24 +43,30 @@ namespace GcPdfWeb.Samples.Basics
 
             // 2.
             // Another overload taking a rectangle instead, plus alignment and wrapping
-            // options, is also available and provides a bit more flexibility:
+            // options, is also available and provides a bit more flexibility.
+            // The parameters are:
+            // - the text string;
+            // - the text format;
+            // - the layout rectangle;
+            // - (optional) text alignment (the default is leading, left for LTR languages);
+            // - (optional) paragraph alignment (the default is near, top for top-to-bottom flow);
+            // - (optional) word wrapping (the default is true):
             g.DrawString(
                 "2. A longer test string which will probably need more than the allocated " +
                 "4 inches so quite possibly will wrap to show that DrawString can do that.", 
                 tf,
-                new RectangleF(In, In * 2, In * 4, In), // the layout rectangle
-                // The rest 3 args are optional, passing defaults here for illustration:
-                TextAlignment.Leading,   // leading (left for LTR languages) text align
-                ParagraphAlignment.Near, // near (top for top-to-bottom flow) para align
-                true); // word wrap
+                new RectangleF(In, In * 2, In * 4, In),
+                TextAlignment.Leading,
+                ParagraphAlignment.Near,
+                true);
 
             // 3.
             // Complementary to DrawString, a MeasureString() method is available
             // (with several different overloads), and can be used in pair with
             // DrawString when more control over text layout is needed:
             const string tstr3 = "3. Test string to demo MeasureString() used with DrawString().";
-
-            SizeF layoutSize = new SizeF(In * 3, In * 0.8f); // available size
+            // Available layout size:
+            SizeF layoutSize = new SizeF(In * 3, In * 0.8f);
             SizeF s = g.MeasureString(tstr3, tf, layoutSize, out int fitCharCount);
             // Show the passed in size in red, the measured size in blue,
             // and draw the string within the returned size as bounds:
@@ -75,12 +81,13 @@ namespace GcPdfWeb.Samples.Basics
             // so when you use TextLayout directly, you basically cut the work in half.)
             // A TextLayout instance represents one or more paragraphs of text, with 
             // the same paragraph formatting (character formats may be different,
-            // see {MultiFormattedText}).
+            // see MultiFormattedText).
             var tl = new TextLayout();
             // To add text, use Append() or AppendLine() methods:
             tl.Append("4. First test string added to TextLayout. ", tf);
             tl.Append("Second test string added to TextLayout, continuing the same paragraph. ", tf);
-            tl.AppendLine(); // Add a line break, effectively starting a new paragraph
+            // Add a line break, effectively starting a new paragraph:
+            tl.AppendLine();
             tl.Append("Third test string added to TextLayout, a new paragraph. ", tf);
             tl.Append("Fourth test string, with a different char formatting. ",
                 new TextFormat(tf) { Font = StandardFonts.TimesBoldItalic, ForeColor = Color.DarkSeaGreen, });
@@ -89,7 +96,6 @@ namespace GcPdfWeb.Samples.Basics
             // ...but in that case at least the Font must be specified on the
             // TextLayout's DefaultFormat, otherwise PerformLayout (below) will fail:
             tl.DefaultFormat.Font = StandardFonts.TimesItalic;
-
             // Specify the layout, such as max available size etc.
             // Here we only provide the max width, but many more parameters can be set:
             tl.MaxWidth = page.Size.Width - In * 2;

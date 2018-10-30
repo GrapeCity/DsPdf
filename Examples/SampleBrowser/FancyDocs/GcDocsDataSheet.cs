@@ -22,19 +22,31 @@ namespace GcPdfWeb.Samples
         Color _darkGray = Color.FromArgb(64, 64, 64);
         Color _lightGray = Color.FromArgb(232, 232, 232);
         Color _blue = Color.FromArgb(0x3B, 0x5C, 0xAA);
+        List<IDisposable> _disposables = new List<IDisposable>();
 
         // Main entry point of this sample:
-        public void CreatePDF(Stream stream)
+        public int CreatePDF(Stream stream)
         {
             var doc = new GcPdfDocument();
 
             _fc.RegisterDirectory(Path.Combine("Resources", "Fonts"));
-
+            // First page:
             Page1(doc);
-
+            // Second page:
             Page2(doc);
-
+            // Save the PDF:
             doc.Save(stream);
+            // Dispose images after the document has been saved:
+            _disposables.ForEach(d_ => d_.Dispose());
+            // Done:
+            return doc.Pages.Count;
+        }
+
+        Image GetImage(string path)
+        {
+            var image = Util.ImageFromFile(path);
+            _disposables.Add(image);
+            return image;
         }
 
         void Page1(GcPdfDocument doc)
@@ -43,7 +55,7 @@ namespace GcPdfWeb.Samples
             var g = page.Graphics;
             var tl = new TextLayout() { FontCollection = _fc };
 
-            var gclogo = Util.ImageFromFile(Path.Combine("Resources", "ImagesBis", "gc-logo-100px.png"));
+            var gclogo = GetImage(Path.Combine("Resources", "ImagesBis", "gc-logo-100px.png"));
             var gclogoRc = new RectangleF(36, 0, 72 * 1.8f, 72);
             g.DrawImage(gclogo, gclogoRc, null,
                 new ImageAlign(ImageAlignHorz.Left, ImageAlignVert.Center, true, true, true, false, false), out RectangleF[] rcs);
@@ -57,7 +69,7 @@ namespace GcPdfWeb.Samples
             tl.PerformLayout(true);
             g.DrawTextLayout(tl, new PointF(gclogoRc.Right + 20, gclogoRc.Y));
 
-            var back = Util.ImageFromFile(Path.Combine("Resources", "ImagesBis", "GCDocs-datasheet-sm.png"));
+            var back = GetImage(Path.Combine("Resources", "ImagesBis", "GCDocs-datasheet-sm.png"));
             var backRcClip = new RectangleF(0, 72, page.Size.Width, page.Size.Width - 72 * 1.75f);
             var backRc = new RectangleF(-72, -72 * 4, page.Size.Width + 72 * 4, page.Size.Height + 72 * 4);
             g.DrawImage(back, backRc, backRcClip, ImageAlign.StretchImage);
@@ -95,7 +107,7 @@ namespace GcPdfWeb.Samples
             midRc.Height -= tl.ContentHeight;
             midRc.Inflate(0, -20);
 
-            var hex = Util.ImageFromFile(Path.Combine("Resources", "ImagesBis", "gcd-hex-logo-white.png"));
+            var hex = GetImage(Path.Combine("Resources", "ImagesBis", "gcd-hex-logo-white.png"));
             var hexRc = new RectangleF(midRc.Location, new SizeF(midRc.Height, midRc.Height));
             g.DrawImage(hex, hexRc, null, ImageAlign.StretchImage);
 
@@ -107,31 +119,31 @@ namespace GcPdfWeb.Samples
             tl.PerformLayout(true);
             g.DrawTextLayout(tl, new PointF(midRc.X + midRc.Height + 10, midRc.Y));
 
-            var pointRc = new RectangleF(0, backRcClip.Bottom, page.Size.Width / 2, (page.Size.Height - backRcClip.Bottom) / 2 - 16);
+            var pointRc = new RectangleF(0, backRcClip.Bottom, page.Size.Width / 2, (page.Size.Height - backRcClip.Bottom) / 2 - 12);
             tl.ParagraphAlignment = ParagraphAlignment.Near;
             tl.MaxWidth = pointRc.Width;
             tl.MaxHeight = pointRc.Height;
             tl.MarginLeft = 80;
-            tl.MarginTop = 30;
-            tl.MarginBottom = 2;
+            tl.MarginTop = 25;
+            tl.MarginBottom = 0;
 
-            addPoint(Util.ImageFromFile(Path.Combine("Resources", "ImagesBis", "ico-hex-.NET.png")),
+            addPoint(GetImage(Path.Combine("Resources", "ImagesBis", "ico-hex-.NET.png")),
                 "Expand the reach of modern apps",
                 "With full support for .NET Standard 2.0, you can target multiple platforms, devices, and cloud with one code base.");
 
             pointRc.Offset(0, pointRc.Height);
-            addPoint(Util.ImageFromFile(Path.Combine("Resources", "ImagesBis", "ico-hex-code.png")), 
+            addPoint(GetImage(Path.Combine("Resources", "ImagesBis", "ico-hex-code.png")), 
                 "Comprehensive, highly programmable",
                 "Do more with your Excel spreadsheets and PDFs: these APIs support Windows, Mac, Linux, and a wide variety of features for your documents.");
 
             pointRc.Offset(pointRc.Width, -pointRc.Height);
             tl.MarginRight = 30;
-            addPoint(Util.ImageFromFile(Path.Combine("Resources", "ImagesBis", "ico-hex-speed.png")), 
+            addPoint(GetImage(Path.Combine("Resources", "ImagesBis", "ico-hex-speed.png")), 
                 "High-speed, small footprint",
                 "The API architecture is designed to generate large, optimized documents, fast—while remaining lightweight and extensible.");
 
             pointRc.Offset(0, pointRc.Height);
-            addPoint(Util.ImageFromFile(Path.Combine("Resources", "ImagesBis", "ico-hex-nodependences.png")), 
+            addPoint(GetImage(Path.Combine("Resources", "ImagesBis", "ico-hex-nodependences.png")), 
                 "No dependencies",
                 "Generate and edit digital documents with no Acrobat or Excel dependencies.");
 
@@ -386,7 +398,7 @@ namespace GcPdfWeb.Samples
             hdrTf.FontSize = 6;
             g.DrawString(ftr1, hdrTf, ftrRc, TextAlignment.Leading, ParagraphAlignment.Far, false);
             ftrRc.Inflate(0, -5);
-            g.DrawImage(Util.ImageFromFile(Path.Combine("Resources", "ImagesBis", "logo-GC-white.png")), ftrRc, null,
+            g.DrawImage(GetImage(Path.Combine("Resources", "ImagesBis", "logo-GC-white.png")), ftrRc, null,
                 new ImageAlign() { AlignHorz = ImageAlignHorz.Right, AlignVert = ImageAlignVert.Center, BestFit = true });
 
             void addHeader(float y, string caption, string text)
@@ -416,10 +428,10 @@ namespace GcPdfWeb.Samples
                 ret.Height = tl.ContentHeight;
                 pt.Y += ret.Height;
                 tl.Clear();
-                // MeasureString ignores trailing spaces:
-                tl.FirstLineIndent = g.MeasureString("q", tf).Width - g.MeasureString("\u2022 q", tf).Width;
+                var itemPrefix = "\u2022  ";
+                tl.FirstLineIndent = -g.MeasureStringWithTrailingWhitespace(itemPrefix, tf).Width;
                 foreach (var item in items)
-                    tl.Append("\u2022 " + item + "\n", tf);
+                    tl.AppendLine(itemPrefix + item, tf);
                 tl.PerformLayout(true);
                 g.DrawTextLayout(tl, pt);
                 ret.Width = Math.Max(ret.Width, tl.ContentWidth);

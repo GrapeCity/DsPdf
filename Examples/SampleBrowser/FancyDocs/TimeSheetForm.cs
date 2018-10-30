@@ -13,7 +13,7 @@ using System.Security.Cryptography.X509Certificates;
 namespace GcPdfWeb.Samples
 {
     // This sample generates a PDF AcroForm representing a time sheet.
-    // The same code is used to generated the time sheet in the TimeSheet use case sample.
+    // The same code is used to generate the time sheet in the TimeSheet use case sample.
     public class TimeSheetForm
     {
         // Font collection to hold the fonts we need:
@@ -26,9 +26,11 @@ namespace GcPdfWeb.Samples
         private float _inputMargin = 5;
         // Space for employee's signature:
         private RectangleF _empSignRect;
+        // Logo (we should dispose it after saving the document):
+        private Image _logo = null;
 
         // Main entry point of this sample:
-        public void CreatePDF(Stream stream)
+        public int CreatePDF(Stream stream)
         {
             // Set up a font collection with the fonts we need:
             _fc.RegisterDirectory(Path.Combine("Resources", "Fonts"));
@@ -45,12 +47,15 @@ namespace GcPdfWeb.Samples
             // (in a real-life scenario, we probably would only create it once,
             // and then re-use the form PDF):
             var doc = MakeTimeSheetForm();
-
-            // Done:
+            // Save the PDF:
             doc.Save(stream);
+            // Images used in a document can be disposed only after saving the PDF:
+            _logo.Dispose();
+            // Done:
+            return doc.Pages.Count;
         }
 
-        // data fields names:
+        // Data field names:
         static class _Names
         {
             public static readonly string[] Dows = new string[]
@@ -98,9 +103,9 @@ namespace GcPdfWeb.Samples
             g.DrawTextLayout(tl, ip);
             ip.Y += tl.ContentHeight + 15;
 
-            var logo = Image.FromFile(Path.Combine("Resources", "ImagesBis", "AcmeLogo-vertical-250px.png"));
+            _logo = Image.FromFile(Path.Combine("Resources", "ImagesBis", "AcmeLogo-vertical-250px.png"));
             var s = new SizeF(250f * 0.75f, 64f * 0.75f);
-            g.DrawImage(logo, new RectangleF(ip, s), null, ImageAlign.Default);
+            g.DrawImage(_logo, new RectangleF(ip, s), null, ImageAlign.Default);
             ip.Y += s.Height + 5;
 
             tl.Clear();
@@ -247,9 +252,7 @@ namespace GcPdfWeb.Samples
                 throw new Exception("Table must have some columns and rows.");
 
             RectangleF[,] cells = new RectangleF[widths.Length, heights.Length];
-
             var r = new RectangleF(loc, new SizeF(widths.Sum(), heights.Sum()));
-
             // Draw left borders (except for 1st one):
             float x = loc.X;
             for (int i = 0; i < widths.Length; ++i)
@@ -278,64 +281,8 @@ namespace GcPdfWeb.Samples
             }
             // Draw outer border:
             g.DrawRectangle(r, p);
-            //
+            // Done:
             return cells;
-        }
-
-        // Fill in employee info and working hours with sample data:
-        private void FillEmployeeData(GcPdfDocument doc)
-        {
-            // For the purposes of this sample, we fill the form with random data:
-            SetFieldValue(doc, _Names.EmpName, "Jaime Smith");
-            SetFieldValue(doc, _Names.EmpNum, "12345");
-            SetFieldValue(doc, _Names.EmpDep, "Research & Development");
-            SetFieldValue(doc, _Names.EmpTitle, "Senior Developer");
-            SetFieldValue(doc, _Names.EmpStatus, "Full Time");
-            var rand = new Random((int)DateTime.Now.Ticks);
-            DateTime workday = DateTime.Now.AddDays(-15);
-            while (workday.DayOfWeek != DayOfWeek.Sunday)
-                workday = workday.AddDays(1);
-            TimeSpan wkTot = TimeSpan.Zero, wkReg = TimeSpan.Zero, wkOvr = TimeSpan.Zero;
-            for (int i = 0; i < 7; ++i)
-            {
-                // start time:
-                var start = new DateTime(workday.Year, workday.Month, workday.Day, rand.Next(6, 12), rand.Next(0, 59), 0);
-                SetFieldValue(doc, _Names.DtNames[_Names.Dows[i]][0], start.ToShortDateString());
-                SetFieldValue(doc, _Names.DtNames[_Names.Dows[i]][1], start.ToShortTimeString());
-                // end time:
-                var end = start.AddHours(rand.Next(8, 14)).AddMinutes(rand.Next(0, 59));
-                SetFieldValue(doc, _Names.DtNames[_Names.Dows[i]][2], end.ToShortTimeString());
-                var tot = end - start;
-                var reg = TimeSpan.FromHours((start.DayOfWeek != DayOfWeek.Saturday && start.DayOfWeek != DayOfWeek.Sunday) ? 8 : 0);
-                var ovr = tot.Subtract(reg);
-                SetFieldValue(doc, _Names.DtNames[_Names.Dows[i]][3], reg.ToString(@"hh\:mm"));
-                SetFieldValue(doc, _Names.DtNames[_Names.Dows[i]][4], ovr.ToString(@"hh\:mm"));
-                SetFieldValue(doc, _Names.DtNames[_Names.Dows[i]][5], tot.ToString(@"hh\:mm"));
-                wkTot += tot;
-                wkOvr += ovr;
-                wkReg += reg;
-                //
-                workday = workday.AddDays(1);
-            }
-            SetFieldValue(doc, _Names.TotalReg, wkReg.TotalHours.ToString("F"));
-            SetFieldValue(doc, _Names.TotalOvr, wkOvr.TotalHours.ToString("F"));
-            SetFieldValue(doc, _Names.TotalHours, wkTot.TotalHours.ToString("F"));
-            SetFieldValue(doc, _Names.EmpSignDate, workday.ToShortDateString());
-
-            // 'Sign' the image on behalf of the employee by drawing an image representing the signature
-            // (alternatively, this could be a digital signature field like the super's signature below):
-            var empSignImage = Image.FromFile(Path.Combine("Resources", "ImagesBis", "signature.png"));
-            var ia = new ImageAlign(ImageAlignHorz.Center, ImageAlignVert.Center, true, true, true, false, false)
-            { KeepAspectRatio = true };
-            doc.Pages[0].Graphics.DrawImage(empSignImage, _empSignRect, null, ia);
-        }
-
-        // Sets the value of a field with the specified name:
-        private void SetFieldValue(GcPdfDocument doc, string name, string value)
-        {
-            var fld = doc.AcroForm.Fields.First(f_ => f_.Name == name);
-            if (fld != null)
-                fld.Value = value;
         }
     }
 }

@@ -14,7 +14,7 @@ namespace GcPdfWeb.Samples
     // and verifies the signature.
     public class SignDoc
     {
-        public void CreatePDF(Stream stream)
+        public int CreatePDF(Stream stream)
         {
             GcPdfDocument doc = new GcPdfDocument();
             Page page = doc.NewPage();
@@ -41,7 +41,6 @@ namespace GcPdfWeb.Samples
             sf.Widget.ButtonAppearance.Caption = $"Signer: {sp.SignerName}\r\nLocation: {sp.Location}";
             // Add the signature field to the document:
             doc.AcroForm.Fields.Add(sf);
-
             // Connect the signature field and signature props:
             sp.SignatureField = sf;
 
@@ -61,6 +60,7 @@ namespace GcPdfWeb.Samples
                 throw new Exception("Failed to verify the signature");
 
             // Done (the generated and signed docment has already been saved to 'stream').
+            return doc.Pages.Count;
         }
     }
 }
