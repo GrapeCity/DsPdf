@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -40,11 +44,11 @@ namespace GcPdfWeb.Samples.Basics
         // Renders a list of nodes as a numbered list.
         private PointF RenderNodes(ref Page page, PointF pt, List<Node> nodes, int level)
         {
-            TextLayout tlBullet = new TextLayout();
+            TextLayout tlBullet = new TextLayout(72);
             tlBullet.DefaultFormat.Font = StandardFonts.Times;
             tlBullet.MarginLeft = Layout.ListIndent * level;
 
-            TextLayout tlText = new TextLayout();
+            TextLayout tlText = new TextLayout(72);
             tlText.DefaultFormat.Font = StandardFonts.Times;
             tlText.MarginLeft = Layout.ListOffset + Layout.ListIndent * level;
 

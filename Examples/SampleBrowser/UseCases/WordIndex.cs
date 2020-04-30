@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -135,7 +139,7 @@ namespace GcPdfWeb.Samples.Basics
                 FontSize = 10,
             };
             // FirstLineIndent = -18 sets up hanging indent:
-            var tl = new TextLayout()
+            var tl = new TextLayout(72)
             {
                 FontCollection = _fc,
                 FirstLineIndent = -18,
@@ -272,14 +276,14 @@ namespace GcPdfWeb.Samples.Basics
                 // See StartEndDoc for details on StartDoc/EndDoc mode:
                 tdoc.StartDoc(fsOut);
                 // Prep a TextLayout to hold/format the text:
-                var tl = new TextLayout();
+                var tl = new TextLayout(72);
                 tl.FontCollection = _fc;
                 tl.DefaultFormat.FontName = _fontFamily;
                 tl.DefaultFormat.FontSize = 12;
                 // Use TextLayout to layout the whole page including margins:
                 tl.MaxHeight = tdoc.PageSize.Height;
                 tl.MaxWidth = tdoc.PageSize.Width;
-                tl.MarginLeft = tl.MarginTop = tl.MarginRight = tl.MarginBottom = 72;
+                tl.MarginAll = 72;
                 tl.FirstLineIndent = 72 / 2;
                 // Generate the document:
                 for (int pageIdx = 0; pageIdx < N; ++pageIdx)

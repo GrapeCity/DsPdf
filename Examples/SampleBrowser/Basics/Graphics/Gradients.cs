@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -18,7 +22,7 @@ namespace GcPdfWeb.Samples.Basics
             var testRectSize = new SizeF(72 * 4, 72);
             var dy = 12;
             // TextLayout to draw labels:
-            var tl = new TextLayout();
+            var tl = g.CreateTextLayout();
             tl.DefaultFormat.Font = StandardFonts.Times;
             tl.DefaultFormat.FontSize = 18;
             tl.DefaultFormat.ForeColor = Color.Chartreuse;

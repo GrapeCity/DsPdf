@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -21,7 +25,7 @@ namespace GcPdfWeb.Samples.Basics
             tl.FirstLineIndent = 72 / 2;
             tl.MaxWidth = doc.PageSize.Width;
             tl.MaxHeight = doc.PageSize.Height;
-            tl.MarginLeft = tl.MarginTop = tl.MarginRight = tl.MarginBottom = tl.Resolution;
+            tl.MarginAll = tl.Resolution;
             // Text layout for chapter headers:
             var tlCaption = new TextLayout(72);
             tlCaption.DefaultFormat.Font = StandardFonts.TimesBold;

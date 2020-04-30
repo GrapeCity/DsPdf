@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -26,7 +30,7 @@ namespace GcPdfWeb.Samples
                 // Add note to the (only) page in the doc:
                 var page = doc.Pages.Last;
                 Common.Util.AddNote(
-                    "This text was added to the original \"Hello World\" PDF",
+                    "This text was added to the original \"Hello World\" PDF.",
                     page,
                     new RectangleF(72, 72 * 3, page.Size.Width - 72 * 2, 72));
                 // Done:

@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -61,7 +65,7 @@ namespace GcPdfWeb.Samples
 
             // For TextLayout/TextFormat to be able to use a font collection, it must be
             // associated with it like so:
-            var tl = new TextLayout() { FontCollection = fc };
+            var tl = new TextLayout(g.Resolution) { FontCollection = fc };
 
             // Render some strings using the different fonts from our collection:
             var tf = new TextFormat() { FontName = "times new roman", FontSize = 16 };
@@ -87,7 +91,7 @@ namespace GcPdfWeb.Samples
             // Apply page settings to the page layout and render the page:
             tl.MaxWidth = page.Size.Width;
             tl.MaxHeight = page.Size.Height;
-            tl.MarginLeft = tl.MarginTop = tl.MarginRight = tl.MarginBottom = 72;
+            tl.MarginAll = 72;
             tl.PerformLayout(true);
             g.DrawTextLayout(tl, PointF.Empty);
 

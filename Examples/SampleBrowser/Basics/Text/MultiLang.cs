@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -74,7 +78,7 @@ namespace GcPdfWeb.Samples.Basics
             // Create document:
             _doc = new GcPdfDocument();
             // Init text layouts:
-            _captionLayout = new TextLayout()
+            _captionLayout = new TextLayout(72)
             {
                 MaxWidth = _doc.PageSize.Width - c_Margin * 2,
                 MarginLeft = 4,
@@ -86,7 +90,7 @@ namespace GcPdfWeb.Samples.Basics
             _captionLayout.DefaultFormat.FontSize = 12;
             _captionLayout.DefaultFormat.ForeColor = Color.AliceBlue;
             //
-            _textLayout = new TextLayout()
+            _textLayout = new TextLayout(72)
             {
                 FontFallbackScope = FontFallbackScope.None,
                 MaxWidth = _doc.PageSize.Width - c_Margin * 2,

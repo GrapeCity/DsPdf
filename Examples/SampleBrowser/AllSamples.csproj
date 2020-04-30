@@ -3,14 +3,21 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <DefaultItemExcludes>$(DefaultItemExcludes);GcPdfViewerWeb\**\*</DefaultItemExcludes>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="GrapeCity.Documents.Barcode" Version="2.0.0.201" />
-    <PackageReference Include="GrapeCity.Documents.Common" Version="2.0.0.201" />
-    <PackageReference Include="GrapeCity.Documents.Common.Windows" Version="2.0.0.201" />
-    <PackageReference Include="GrapeCity.Documents.DX.Windows" Version="2.0.0.201" />
-    <PackageReference Include="GrapeCity.Documents.Pdf" Version="2.0.0.201" />
+    <PackageReference Include="GrapeCity.Documents.Common" Version="3.1.0.512" />
+    <PackageReference Include="GrapeCity.Documents.Common.Windows" Version="3.1.0.512" />
+    <PackageReference Include="GrapeCity.Documents.DX.Windows" Version="3.1.0.512" />
+    <PackageReference Include="GrapeCity.Documents.Pdf" Version="3.1.0.512" />
+    <PackageReference Include="GrapeCity.Documents.Pdf.Resources" Version="3.1.0.512" />
+    <PackageReference Include="GrapeCity.Documents.Barcode" Version="3.1.0.512" />
+    <PackageReference Include="GrapeCity.Documents.Html" Version="3.1.0.512" />
+    <PackageReference Include="GrapeCity.Documents.Html.Linux.X64" Version="3.1.0.512" />
+    <PackageReference Include="GrapeCity.Documents.Html.Mac.X64" Version="3.1.0.512" />
+    <PackageReference Include="GrapeCity.Documents.Html.Windows.X64" Version="3.1.0.512" />
+    <PackageReference Include="Stubble.Core" Version="1.6.3" />
   </ItemGroup>
 
   <ItemGroup>

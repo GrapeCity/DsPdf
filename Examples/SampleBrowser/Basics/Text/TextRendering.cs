@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -82,7 +86,7 @@ namespace GcPdfWeb.Samples.Basics
             // A TextLayout instance represents one or more paragraphs of text, with 
             // the same paragraph formatting (character formats may be different,
             // see MultiFormattedText).
-            var tl = new TextLayout();
+            var tl = g.CreateTextLayout();
             // To add text, use Append() or AppendLine() methods:
             tl.Append("4. First test string added to TextLayout. ", tf);
             tl.Append("Second test string added to TextLayout, continuing the same paragraph. ", tf);

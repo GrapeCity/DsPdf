@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -78,7 +82,7 @@ namespace GcPdfWeb.Samples
                     }
                 }
                 // Add a log of what we did at the bottom of the page:
-                var tl = new TextLayout
+                var tl = new TextLayout(72)
                 {
                     MaxWidth = page.Size.Width,
                     MaxHeight = page.Size.Height,

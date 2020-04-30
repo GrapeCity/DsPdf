@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -37,21 +41,21 @@ namespace GcPdfWeb.Samples.Basics
             // Start creating the document by this call:
             doc.StartDoc(stream);
             // Prep a TextLayout to hold/format the text:
-            var tl = new TextLayout()
+            var tl = new TextLayout(72)
             {
                 MaxWidth = doc.PageSize.Width,
                 MaxHeight = doc.PageSize.Height,
-                MarginLeft = 72,
-                MarginRight = 72,
-                MarginTop = 72,
-                MarginBottom = 72,
+                MarginAll = 72,
             };
             tl.DefaultFormat.Font = StandardFonts.Times;
             tl.DefaultFormat.FontSize = 12;
             // Start with a title page:
             tl.FirstLineIndent = 0;
-            tl.Append($"Large Document\n{N} Pages of Lorem Ipsum\n\n", new TextFormat() { FontSize = 24, FontBold = true });
-            tl.Append($"Generated on {DateTime.Now}.", new TextFormat() { FontSize = 14, FontItalic = true });
+            var fnt = Font.FromFile(Path.Combine("Resources", "Fonts", "yumin.ttf"));
+            var tf0 = new TextFormat() { FontSize = 24, FontBold = true, Font = fnt };
+            tl.Append(string.Format("Large Document\n{0} Pages of Lorem Ipsum\n\n", N), tf0);
+            var tf1 = new TextFormat(tf0) { FontSize = 14, FontItalic = true };
+            tl.Append(string.Format("Generated on {0}.", DateTime.Now), tf1);
             tl.TextAlignment = TextAlignment.Center;
             tl.PerformLayout(true);
             doc.Pages.Add().Graphics.DrawTextLayout(tl, PointF.Empty);

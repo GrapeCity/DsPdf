@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -20,8 +24,8 @@ namespace GcPdfWeb.Samples
 
             // Draw some text that will represent the link:
             var tf = new TextFormat() { Font = StandardFonts.Times, FontSize = 14 };
-            var tl = new TextLayout();
-            tl.MarginLeft = tl.MarginTop = tl.MarginRight = tl.MarginBottom = 72;
+            var tl = g.CreateTextLayout();
+            tl.MarginAll = 72;
             tl.Append("Google google on the wall, please tell me all!", tf);
             tl.PerformLayout(true);
             g.DrawTextLayout(tl, PointF.Empty);

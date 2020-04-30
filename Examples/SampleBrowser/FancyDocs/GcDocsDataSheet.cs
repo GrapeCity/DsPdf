@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -42,7 +46,7 @@ namespace GcPdfWeb.Samples
             return doc.Pages.Count;
         }
 
-        Image GetImage(string path)
+        IImage GetImage(string path)
         {
             var image = Util.ImageFromFile(path);
             _disposables.Add(image);
@@ -53,7 +57,7 @@ namespace GcPdfWeb.Samples
         {
             var page = doc.Pages.Add();
             var g = page.Graphics;
-            var tl = new TextLayout() { FontCollection = _fc };
+            var tl = new TextLayout(g.Resolution) { FontCollection = _fc };
 
             var gclogo = GetImage(Path.Combine("Resources", "ImagesBis", "gc-logo-100px.png"));
             var gclogoRc = new RectangleF(36, 0, 72 * 1.8f, 72);
@@ -151,7 +155,7 @@ namespace GcPdfWeb.Samples
 
             drawCircle(new PointF(page.Size.Width - 160, backRcClip.Bottom - 105));
 
-            void addPoint(Image img, string caption, string text)
+            void addPoint(IImage img, string caption, string text)
             {
                 var imgRc = new RectangleF(pointRc.X + 20, pointRc.Y + tl.MarginTop, 48, 48);
                 g.DrawImage(img, imgRc, null, new ImageAlign() { AlignHorz = ImageAlignHorz.Center, AlignVert = ImageAlignVert.Center, BestFit = true });
@@ -206,7 +210,7 @@ namespace GcPdfWeb.Samples
         {
             var page = doc.Pages.Add();
             var g = page.Graphics;
-            var tl = new TextLayout() { FontCollection = _fc };
+            var tl = new TextLayout(g.Resolution) { FontCollection = _fc };
             var col0X = 36;
             var colWidth = page.Size.Width / 3 - 40;
             var colGap = 20;

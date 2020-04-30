@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -36,12 +40,12 @@ namespace GcPdfWeb.Samples
             // Text format for captions:
             var tf = new TextFormat()
             {
-                Font = StandardFonts.TimesBold,
+                Font = Font.FromFile(Path.Combine("Resources", "Fonts", "yumin.ttf")),
                 FontSize = 14,
                 ForeColor = Color.Blue
             };
             // Text layout to render the text:
-            var tl = new TextLayout();
+            var tl = new TextLayout(72);
             tl.DefaultFormat.Font = StandardFonts.Times;
             tl.DefaultFormat.FontSize = 12;
             tl.MaxWidth = doc.PageSize.Width;
@@ -70,7 +74,7 @@ namespace GcPdfWeb.Samples
                 // Add texts and captions to the text layout:
                 for (int i = 0; i < texts.Count; ++i)
                 {
-                    tl.AppendLine($"Text from page {i + 1} of the loaded document:", tf);
+                    tl.AppendLine(string.Format("Text from page {0} of the loaded document:", i + 1), tf);
                     tl.AppendLine(texts[i]);
                 }
                 tl.PerformLayout(true);

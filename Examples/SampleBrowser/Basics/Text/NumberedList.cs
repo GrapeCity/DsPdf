@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -22,7 +26,7 @@ namespace GcPdfWeb.Samples.Basics
         // Utility method which pre-pends numbers to all paragraphs in a TextLayout.
         private void AddBullets(GcGraphics g, PointF pt, TextLayout tl, ref int itemNo)
         {
-            var tlBullet = new TextLayout();
+            var tlBullet = g.CreateTextLayout();
             tlBullet.DefaultFormat.Font = StandardFonts.Times;
             tlBullet.DefaultFormat.FontSize = 12;
             foreach (var line in tl.Lines)
@@ -43,7 +47,7 @@ namespace GcPdfWeb.Samples.Basics
             var doc = new GcPdfDocument();
             var ip = new PointF(Layout.Margin, Layout.Margin);
             // Use TextLayout.MarginLeft to reserve space for list numbers/bullets:
-            var tl = new TextLayout()
+            var tl = new TextLayout(72)
             {
                 MaxWidth = doc.PageSize.Width - Layout.Margin * 2,
                 MaxHeight = doc.PageSize.Height - Layout.Margin * 2,

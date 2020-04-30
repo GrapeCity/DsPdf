@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -7,7 +11,7 @@ using GrapeCity.Documents.Text;
 namespace GcPdfWeb.Samples.Basics
 {
     // A simple demonstration of some interesting font features in action.
-    // For the complete list of font features see <a class="nocode a" target="_blank" href="https://www.microsoft.com/typography/otspec/featurelist.htm">featurelist.htm</a>.
+    // For the complete list of font features see https://www.microsoft.com/typography/otspec/featurelist.htm.
     // See also Ligatures.
     public class FontFeatures
     {

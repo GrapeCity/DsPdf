@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -11,8 +15,6 @@ namespace GcPdfWeb.Samples
     // using dedicated DrawRoundRect/FillRoundRect methods.
     // It also shows how the same result may be achieved with
     // graphics paths.
-#if !DIODOCS_V1
-#endif
     public class RoundRectangle
     {
         public int CreatePDF(Stream stream)

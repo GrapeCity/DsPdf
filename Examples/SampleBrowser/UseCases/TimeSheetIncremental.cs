@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -28,7 +32,7 @@ namespace GcPdfWeb.Samples
         // Font collection to hold the fonts we need:
         private FontCollection _fc = new FontCollection();
         // The text layout used to render input fields when flattening the document:
-        private TextLayout _inputTl = new TextLayout();
+        private TextLayout _inputTl = new TextLayout(72);
         // The text format used for input fields:
         private TextFormat _inputTf = new TextFormat();
         // Input fields margin:
@@ -164,7 +168,7 @@ namespace GcPdfWeb.Samples
             var g = page.Graphics;
             var ip = new PointF(marginH, marginV);
 
-            var tl = new TextLayout() { FontCollection = _fc };
+            var tl = new TextLayout(g.Resolution) { FontCollection = _fc };
 
             tl.Append("TIME SHEET", new TextFormat() { FontName = "Segoe UI", FontSize = 18 });
             tl.PerformLayout(true);

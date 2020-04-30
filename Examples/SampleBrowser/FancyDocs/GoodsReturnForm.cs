@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -100,7 +104,7 @@ namespace GcPdfWeb.Samples.OrderReturnForm
         static GoodsReturnForm()
         {
             // Init Textbox:
-            TextLayout tl = new TextLayout() { Resolution = 72 };
+            TextLayout tl = new TextLayout(72);
             tl.Append("Qwerty");
             tl.DefaultFormat.Font = Textbox.Font;
             tl.DefaultFormat.FontSize = Textbox.FontSize;

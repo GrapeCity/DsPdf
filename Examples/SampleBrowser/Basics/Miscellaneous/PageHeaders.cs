@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -23,7 +27,7 @@ namespace GcPdfWeb.Samples.Basics
         private void RenderHeader(string text, TextFormat tf, int pageIdx, bool header, TextAlignment horzAlign)
         {
             var page = _doc.Pages[pageIdx];
-            TextLayout tl = new TextLayout() { Resolution = page.Graphics.Resolution };
+            TextLayout tl = new TextLayout(page.Graphics.Resolution);
             tl.MaxWidth = page.Size.Width;
             tl.MaxHeight = page.Size.Height;
             // 1" margins, adjust as needed:
@@ -57,7 +61,7 @@ namespace GcPdfWeb.Samples.Basics
             tl.DefaultFormat.FontSize = 12;
             tl.MaxWidth = _doc.PageSize.Width;
             tl.MaxHeight = _doc.PageSize.Height;
-            tl.MarginLeft = tl.MarginTop = tl.MarginRight = tl.MarginBottom = tl.Resolution;
+            tl.MarginAll = tl.Resolution;
             tl.MarginTop = noteRect.Bottom + 18;
             // Add sample text:
             tl.Append(Common.Util.LoremIpsum(20));

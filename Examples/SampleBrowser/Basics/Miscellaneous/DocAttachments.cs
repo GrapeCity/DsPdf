@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Linq;
@@ -9,10 +13,9 @@ using GrapeCity.Documents.Drawing;
 namespace GcPdfWeb.Samples.Basics
 {
     // Shows how to attach files to a PDF document.
+    // In this sample we attach a few photos and two PDFs, including an AcroForm.
     // See also the FileAttachments sample that demonstrates file attachment annotations,
-    // which are attached to a specific location on a page.
-#if !DIODOCS_V1
-#endif
+    // which are files associated with a specific location on a page.
     public class DocAttachments
     {
         public void CreatePDF(Stream stream)
@@ -20,28 +23,31 @@ namespace GcPdfWeb.Samples.Basics
             var doc = new GcPdfDocument();
             var page = doc.NewPage();
 
-            string[] files = new string[]
+            (string, string)[] files = new (string, string)[]
             {
-                "tudor.jpg",
-                "sea.jpg",
-                "puffins.jpg",
-                "lavender.jpg",
-                "skye.jpg",
-                "fiord.jpg",
-                "out.jpg"
+                ( "Images", "tudor.jpg" ),
+                ( "Images", "sea.jpg" ),
+                ( "Images", "puffins.jpg" ),
+                ( "Images", "lavender.jpg" ),
+                ( "Images", "skye.jpg" ),
+                ( "Images", "fiord.jpg" ),
+                ( "Images", "out.jpg" ),
+                ( "PDFs", "HelloWorld.pdf" ),
+                ( "PDFs", "FormFields.pdf" )
             };
             var sb = new StringBuilder();
-            foreach (var fn in files)
-                sb.AppendLine(fn);
+            foreach (var f in files)
+                sb.AppendLine(f.Item2);
             Common.Util.AddNote(
-                "Several images from the sample's Resources/Images folder are attached to this document:\n\n" +
+                "Several images and PDFs are attached to this document:\n\n" +
                 sb.ToString(), page);
-            foreach (string fn in files)
+            foreach (var f in files)
             {
-                string file = Path.Combine("Resources", "Images", fn);
+                string file = Path.Combine("Resources", f.Item1, f.Item2);
                 FileSpecification fspec = FileSpecification.FromEmbeddedFile(EmbeddedFileStream.FromFile(doc, file));
                 doc.EmbeddedFiles.Add(file, fspec);
             }
+
             // Done:
             doc.Save(stream);
         }

@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -24,7 +28,7 @@ namespace GcPdfWeb.Samples.Basics
             var pageHeight = doc.PageSize.Height;
             var cW = pageWidth - margin * 2;
             // Text format for the chapter titles:
-            var tlCaption = new TextLayout();
+            var tlCaption = new TextLayout(72);
             tlCaption.DefaultFormat.Font = font;
             tlCaption.DefaultFormat.FontSize = fontSize + 4;
             tlCaption.DefaultFormat.Underline = true;
@@ -35,7 +39,7 @@ namespace GcPdfWeb.Samples.Basics
             // Height of chapter caption (use a const for simplicity):
             const float captionH = 24;
             // Text layout for main document body (default GcPdf resolution is 72dpi):
-            var tl = new TextLayout();
+            var tl = new TextLayout(72);
             tl.DefaultFormat.Font = font;
             tl.DefaultFormat.FontSize = fontSize;
             tl.FirstLineIndent = 72 / 2;

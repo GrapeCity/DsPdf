@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -26,13 +30,13 @@ namespace GcPdfWeb.Samples.Basics
             doc.StructTreeRoot.Children.Add(sePart);
 
             // Create and set up a TextLayout to render paragraphs:
-            var tl = new TextLayout();
+            var tl = new TextLayout(72);
             tl.DefaultFormat.Font = StandardFonts.Times;
             tl.DefaultFormat.FontSize = 12;
             tl.FirstLineIndent = 72 / 2;
             tl.MaxWidth = doc.PageSize.Width;
             tl.MaxHeight = doc.PageSize.Height;
-            tl.MarginLeft = tl.MarginTop = tl.MarginRight = tl.MarginBottom = tl.Resolution;
+            tl.MarginAll = tl.Resolution;
             //
             // Append the text (20 paragraphs so they would not fit on a single page)
             // (note that TextLayout interprets "\r\n" as paragraph delimiter):

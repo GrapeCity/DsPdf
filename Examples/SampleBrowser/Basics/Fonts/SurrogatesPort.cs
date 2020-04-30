@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -50,7 +54,7 @@ namespace GcPdfWeb.Samples.Basics
             // - specify the font collection to use;
             // - restrict default fonts/fallbacks lookup to the specified collection only;
             // - set up other props to render the text.
-            TextLayout tl = new TextLayout()
+            TextLayout tl = new TextLayout(72)
             {
                 FontCollection = fc,
                 RestrictedFontLookup = true,

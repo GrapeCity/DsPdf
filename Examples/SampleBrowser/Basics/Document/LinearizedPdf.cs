@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -27,7 +31,7 @@ namespace GcPdfWeb.Samples.Basics
             // Use TextLayout to layout the whole page including margins:
             tl.MaxHeight = page.Size.Height;
             tl.MaxWidth = page.Size.Width;
-            tl.MarginLeft = tl.MarginTop = tl.MarginRight = tl.MarginBottom = 72;
+            tl.MarginAll = 72;
             tl.FirstLineIndent = 72 / 2;
             // Generate the document:
             for (int pageIdx = 0; pageIdx < N; ++pageIdx)

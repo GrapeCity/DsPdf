@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -24,14 +28,16 @@ namespace GcPdfWeb.Samples.Basics
             var gap = 8;
 
             var rc = Common.Util.AddNote(
-                "This sample demonstrates some types of annotations that can be created with GcPdf.\r\n" +
-                "Note that some annotation types may not display in certain viewers (such as built-in browser viewers). " +
+                "This sample demonstrates some types of annotations that can be created with GcPdf.\n" +
+                "Note that some annotation types may not display in certain viewers (such as built-in browser viewers)." +
                 "To see all annotations on this page, open it in Acrobat Reader or other full-featured PDF viewer.",
                 page);
 
             // Text annotation:
             var ip = new PointF(rc.X, rc.Bottom + gap);
-            rc = Common.Util.AddNote("A red text annotation is placed to the right of this note.", page, new RectangleF(ip.X, ip.Y, noteWidth, 100));
+            rc = Common.Util.AddNote(
+                "A red text annotation is placed to the right of this note.",
+                page, new RectangleF(ip.X, ip.Y, noteWidth, 100));
             var textAnnot = new TextAnnotation()
             {
                 UserName = user1,
@@ -53,7 +59,9 @@ namespace GcPdfWeb.Samples.Basics
 
             // An initially open text annotation:
             ip = new PointF(rc.X, rc.Bottom + gap);
-            rc = Common.Util.AddNote("A green text annotation that is initially open is placed to the right of this note.", page, new RectangleF(ip.X, ip.Y, noteWidth, 100));
+            rc = Common.Util.AddNote(
+                "A green text annotation that is initially open is placed to the right of this note.",
+                page, new RectangleF(ip.X, ip.Y, noteWidth, 100));
             var textAnnotOpen = new TextAnnotation()
             {
                 Open = true,
@@ -66,7 +74,8 @@ namespace GcPdfWeb.Samples.Basics
 
             // A free text annotation (shows directly on page):
             ip = new PointF(rc.X, rc.Bottom + gap);
-            rc = Common.Util.AddNote("A blue free text annotation is placed below and to the right, with a callout going from it to this note.",
+            rc = Common.Util.AddNote(
+                "A blue free text annotation is placed below and to the right, with a callout going from it to this note.",
                 page, new RectangleF(ip.X, ip.Y, noteWidth, 100));
             var freeAnnot = new FreeTextAnnotation()
             {
@@ -95,13 +104,14 @@ namespace GcPdfWeb.Samples.Basics
                 RichText =
                     "<body><p>This is another <i>free text annotation</i>, with <b><i>Rich Text</i></b> content.</p>" +
                     "<p><br />Even though a <b>free text</b> annotation displays text directly on a page, " +
-                    "as other annotations it can be placed outside the page's bounds.</p></body>",
+                    "as other annotations it can be placed outside the page's bounds.</p></body>"
             };
             page.Annotations.Add(freeRichAnnot);
 
             // A square annotatou around a note:
             ip = new PointF(rc.X, freeRichAnnot.Rect.Bottom + gap * 2);
-            rc = Common.Util.AddNote("A square annotation drawn with a 3pt wide orange line around this note has a rich text associated with it.",
+            rc = Common.Util.AddNote(
+                "A square annotation drawn with a 3pt wide orange line around this note has a rich text associated with it.",
                 page, new RectangleF(ip.X, ip.Y, noteWidth, 100));
 
             rc.Inflate(8, 8);
@@ -112,7 +122,7 @@ namespace GcPdfWeb.Samples.Basics
                 LineWidth = 3,
                 Color = Color.Orange,
                 RichText =
-                    "<body><p>This <b><i>rich text</i></b> is associated with the square annotation around a text note.</p></body>",
+                    "<body><p>This <b><i>rich text</i></b> is associated with the square annotation around a text note.</p></body>"
             };
             page.Annotations.Add(squareAnnot);
 

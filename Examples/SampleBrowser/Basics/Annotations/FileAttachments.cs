@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -21,7 +25,8 @@ namespace GcPdfWeb.Samples.Basics
 
             var rc = Common.Util.AddNote(
                 "Some files from the sample's Resources/Images folder are attached to this page.\n" +
-                "Some viewers may not show attachments, so we draw rectangles to indicate their (usually clickable) locations.", page);
+                "Some viewers may not show attachments, so we draw rectangles to indicate their (usually clickable) locations.",
+                page);
             var ip = new PointF(rc.X, rc.Bottom + 9);
             var attSize = new SizeF(36, 12);
             var gap = 8;
@@ -43,7 +48,7 @@ namespace GcPdfWeb.Samples.Basics
                     Color = Color.FromArgb(unchecked((int)0xFFc540a5)),
                     UserName = "Jaime Smith",
                     Rect = new RectangleF(ip.X, ip.Y, attSize.Width, attSize.Height),
-                    Contents = $"Attached file {file}",
+                    Contents = "Attached file: " + file,
                     Icon = FileAttachmentAnnotationIcon.Paperclip,
                     File = FileSpecification.FromEmbeddedFile(EmbeddedFileStream.FromFile(doc, file)),
                 };

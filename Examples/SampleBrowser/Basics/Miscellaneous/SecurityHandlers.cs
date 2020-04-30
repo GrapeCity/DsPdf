@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -76,9 +80,10 @@ namespace GcPdfWeb.Samples
                 {
                     // Make sure the loaded permissions are what we specified in Step 1:
                     Common.Util.AddNote(
-                        $"Security attributes that were in the loaded PDF's DecryptHandler:\n" +
-                        $"EditingPermissions: {dh_ssh4.EditingPermissions}\n" +
-                        $"PrintingPermissions: {dh_ssh4.PrintingPermissions}",
+                        string.Format("Security attributes that were in the loaded PDF's DecryptHandler:\n" +
+                            "EditingPermissions: {0}\n" +
+                            "PrintingPermissions: {1}",
+                        dh_ssh4.EditingPermissions, dh_ssh4.PrintingPermissions),
                         doc.Pages[0],
                         new RectangleF(72, rc0.Bottom + 36, 72 * 6, 72 * 2));
                     // This won't work, sorry:

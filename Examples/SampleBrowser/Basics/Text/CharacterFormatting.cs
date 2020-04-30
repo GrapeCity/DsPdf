@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -65,7 +69,7 @@ namespace GcPdfWeb.Samples.Basics
 
             // 5. Different text formats may be mixed in the same paragraph.
             // For that, TextLayout and GcPdfGraphics.DrawTextLayout must be used:
-            TextLayout tl = new TextLayout();
+            TextLayout tl = g.CreateTextLayout();
             tl.Append(
                 "5. Different text formats can be easily mixed in the same paragraph ",
                 new TextFormat() { Font = StandardFonts.Times });

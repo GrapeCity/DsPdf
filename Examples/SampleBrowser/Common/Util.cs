@@ -1,12 +1,20 @@
-﻿using System;
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
+using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.IO;
 using System.Linq;
 using System.Drawing;
 using GrapeCity.Documents.Drawing;
+using GrapeCity.Documents.Text;
 using GrapeCity.Documents.Pdf;
+using GrapeCity.Documents.Pdf.Annotations;
+using GrapeCity.Documents.Pdf.Actions;
 
 namespace GcPdfWeb.Samples.Common
 {
@@ -94,7 +102,7 @@ namespace GcPdfWeb.Samples.Common
         }
 
         /// <summary>
-        /// Adds a note to the document - a text fragment on a yellow background.
+        /// Adds a note to the document - a text fragment on a colored background.
         /// Used to insert meta info into sample documents.
         /// </summary>
         /// <param name="text">The text to draw.</param>
@@ -107,6 +115,9 @@ namespace GcPdfWeb.Samples.Common
             var tl = g.CreateTextLayout();
             var pad = g.Resolution / 8f;
             tl.DefaultFormat.Font = StandardFonts.Helvetica;
+            var yumin = Path.Combine("Resources", "Fonts", "yumin.ttf");
+            if (File.Exists(yumin))
+                tl.DefaultFormat.Font.AddLinkedFont(Font.FromFile(yumin));
             tl.DefaultFormat.FontSize = 12;
             if (!bounds.HasValue)
             {
@@ -115,9 +126,34 @@ namespace GcPdfWeb.Samples.Common
             }
             tl.MaxWidth = bounds.Value.Width;
             tl.MaxHeight = bounds.Value.Height;
-            tl.MarginLeft = tl.MarginRight = tl.MarginTop = tl.MarginBottom = pad;
-            tl.Append(text);
+            tl.MarginAll = pad;
+
+            var texts = Regex.Split(text, "(https?://[^ ]+)", RegexOptions.IgnoreCase);
+            var runs = new List<TextRun>();
+            var urls = new List<string>();
+            foreach (var txt in texts)
+            {
+                if (txt.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+                {
+                    urls.Add(txt);
+                    runs.Add(tl.Append(txt, new TextFormat(tl.DefaultFormat)
+                    { ForeColor = Color.Blue, Underline = true, TextRunAsCluster = true, }));
+                }
+                else
+                    tl.Append(txt);
+            }
             tl.PerformLayout(true);
+            for (int i = 0; i < runs.Count; ++i)
+            {
+                var run = runs[i];
+                var rects = tl.GetTextRects(run.CodePointIndex, run.CodePointCount);
+                foreach (var r in rects)
+                {
+                    var rc = r.ToRectangleF();
+                    rc.Offset(bounds.Value.Location);
+                    page.Annotations.Add(new LinkAnnotation(rc, new ActionURI(urls[i])));
+                }
+            }
 
             var rect = tl.ContentRectangle;
             rect.Offset(bounds.Value.Location);
@@ -140,10 +176,10 @@ namespace GcPdfWeb.Samples.Common
         /// </summary>
         /// <param name="path">The image path.</param>
         /// <returns>The Image object.</returns>
-        public static Image ImageFromFile(string path)
+        public static IImage ImageFromFile(string path)
         {
-            if (GrapeCity.Documents.Imaging.Windows.WicImage.IsSupported)
-                return GrapeCity.Documents.Imaging.Windows.WicImage.FromFile(path);
+            if (GrapeCity.Documents.Imaging.Windows.GcWicBitmap.IsSupported)
+                return new GrapeCity.Documents.Imaging.Windows.GcWicBitmap(path);
             return Image.FromFile(path);
         }
     }

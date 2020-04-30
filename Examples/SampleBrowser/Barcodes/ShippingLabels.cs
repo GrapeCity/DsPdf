@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -141,7 +145,7 @@ namespace GcPdfWeb.Samples
 
             var g = page.Graphics;
 
-            var tl = new TextLayout();
+            var tl = g.CreateTextLayout();
             tl.DefaultFormat.Font = _tfSmall.Font;
             tl.DefaultFormat.FontSize = _tfSmall.FontSize;
             tl.LineSpacingScaleFactor = 0.75f;

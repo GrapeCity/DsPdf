@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -8,14 +12,14 @@ namespace GcPdfWeb.Samples.Basics
 {
     // Ligatures (joining two or more letters into a single glyph) are supported by GcPdf,
     // provided the selected font supports them, and the corresponding font feature is on.
-    // For the complete list of font features see <a class="nocode a" target="_blank" href="https://www.microsoft.com/typography/otspec/featurelist.htm">featurelist.htm</a>.
+    // For the complete list of font features see https://www.microsoft.com/typography/otspec/featurelist.htm.
     // See also FontFeatures.
     public class Ligatures
     {
         public void CreatePDF(Stream stream)
         {
             // The list of common Latin ligatures:
-            const string latinLigatures = "f‌i, fj, f‌l, f‌f, f‌f‌i, f‌f‌l.";
+            const string latinLigatures = "fi, fj, fl, ff, ffi, ffl.";
             // Set up ligature-related font features:
             // All ON:
             FontFeature[] allOn = new FontFeature[]

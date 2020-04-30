@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -21,7 +25,7 @@ namespace GcPdfWeb.Samples
         private class ImageInfo
         {
             public string Name;
-            public Image Image;
+            public IImage Image;
             public int PageIdx;
         }
 
@@ -29,7 +33,7 @@ namespace GcPdfWeb.Samples
         {
             var doc = new GcPdfDocument();
             var font = Font.FromFile(Path.Combine("Resources", "Fonts", "segoeui.ttf"));
-            // 1/4" page margins all around:
+            // 1/2" page margins all around:
             const float margin = 36;
 
             // Load all images from the Resources/Images folder:

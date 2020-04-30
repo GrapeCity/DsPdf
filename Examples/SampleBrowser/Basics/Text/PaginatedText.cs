@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -13,7 +17,7 @@ namespace GcPdfWeb.Samples.Basics
         {
             var doc = new GcPdfDocument();
             // Use TextLayout to render text:
-            var tl = new TextLayout();
+            var tl = new TextLayout(72);
             // If not specifying formats for individual runs, we MUST provide
             // font and font size on TextLayout.DefaultFormat:
             tl.DefaultFormat.Font = StandardFonts.Times;

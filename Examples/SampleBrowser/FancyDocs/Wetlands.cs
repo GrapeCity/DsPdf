@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -36,7 +40,7 @@ namespace GcPdfWeb.Samples
             // Color for the highlights:
             var colorRed = Color.Red;
             // The text layout used to render text:
-            TextLayout tl = new TextLayout()
+            TextLayout tl = new TextLayout(72)
             {
                     MaxWidth = doc.PageSize.Width,
                     MaxHeight = doc.PageSize.Height,

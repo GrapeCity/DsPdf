@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+    html * {
+      font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif !important;
+    }
+    h1 {
+      color: #1a5276;
+      background-color: #d2b4de;
+      text-align: center;
+      padding: 6px;
+    }
+    thead {
+      display: table-header-group;
+    }
+    #products {
+      font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    #products td, #products th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    #products tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    #products tr:hover {
+      background-color: #ddd;
+    }
+    #products th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #a569bd;
+      color: white;
+    }
+    </style>
+  </head>
+
+  <body>
+    <h1>Product Price List</h1>
+    <table id='products'>
+      <thead>
+        <th>Product ID</th>
+        <th>Description</th>
+        <th>Supplier</th>
+        <th>Quantity Per Unit</th>
+        <th>Unit Price</th>
+      </thead>
+      {{#Query}}
+      <tr>
+        <td>{{ProductID}}</td>
+        <td>{{ProductName}}</td>
+        <td>{{CompanyName}}</td>
+        <td>{{QuantityPerUnit}}</td>
+        <td align='right'>{{UnitPrice}}</td>
+      </tr>
+      {{/Query}}
+    </table>
+  </body>
+</html>

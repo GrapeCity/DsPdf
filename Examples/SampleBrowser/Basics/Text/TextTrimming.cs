@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -9,8 +13,6 @@ namespace GcPdfWeb.Samples.Basics
 {
     // This sample demonstrates how to display ellipsis
     // if a string does not fit in the allocated space.
-#if !DIODOCS_V1
-#endif
     public class TextTrimming
     {
         public int CreatePDF(Stream stream)

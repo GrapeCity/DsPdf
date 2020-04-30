@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -12,7 +16,7 @@ namespace GcPdfWeb.Samples.Basics
     // Shows how to associate a PDF action with a JavaScript script.
     // In this example the script is associated with a link on a page.
     // Note that JavaScript may not work in some PDF viewers (e.g. built-in browser viewers).
-    // See <a class="nocode a" target="_blank" href="http://www.adobe.com/content/dam/acom/en/devnet/acrobat/pdfs/js_api_reference.pdf">JavaScript for Acrobat</a> for details.
+    // See http://www.adobe.com/content/dam/acom/en/devnet/acrobat/pdfs/js_api_reference.pdf for details.
     public class JavaScriptAction
     {
         const string js =

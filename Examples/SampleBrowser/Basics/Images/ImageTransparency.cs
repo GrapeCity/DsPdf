@@ -1,3 +1,7 @@
+//
+// This code is part of http://localhost:20395.
+// Copyright (c) GrapeCity, Inc. All rights reserved.
+//
 using System;
 using System.IO;
 using System.Drawing;
@@ -9,8 +13,6 @@ namespace GcPdfWeb.Samples
 {
     // This sample demonstrates the ability of GcPdf to render
     // images using a specified transparency (opacity).
-#if !DIODOCS_V1
-#endif
     public class ImageTransparency
     {
         public int CreatePDF(Stream stream)
@@ -25,7 +27,7 @@ namespace GcPdfWeb.Samples
                 "0.5 (medium transparency) and 1 (non-transparent).",
                 page);
 
-            var tl = new TextLayout();
+            var tl = g.CreateTextLayout();
             tl.DefaultFormat.Font = StandardFonts.Times;
             tl.DefaultFormat.FontSize = 12;
             tl.MaxWidth = page.Size.Width;
